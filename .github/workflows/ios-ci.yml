@@ -1,0 +1,69 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate-and-test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Validate test dataset
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path("Tests/GroundTruth")
+          manifests = sorted(root.glob("gt_*.json"))
+          assert len(manifests) == 35, f"expected 35 manifests, got {len(manifests)}"
+          docs = [json.loads(path.read_text(encoding="utf-8")) for path in manifests]
+          assert len({doc["card_id"] for doc in docs}) == 35
+          missing = [doc["image_file"] for doc in docs if not (root / doc["image_file"]).is_file()]
+          assert not missing, f"missing images: {missing}"
+          print("Validated 35 unique Ground Truth manifests and 35 images")
+          PY
+
+      - name: Validate accuracy evaluator
+        run: python3 Scripts/evaluate_accuracy.py --actual Tests/GroundTruth
+
+      - name: Select an available iOS Simulator
+        run: |
+          UDID=$(python3 - <<'PY'
+          import json, subprocess
+          data = json.loads(subprocess.check_output(["xcrun", "simctl", "list", "devices", "available", "-j"]))
+          devices = [device for runtime in data["devices"].values() for device in runtime if "iPhone" in device["name"]]
+          if not devices:
+              raise SystemExit("No available iPhone simulator")
+          print(devices[0]["udid"])
+          PY
+          )
+          echo "SIMULATOR_UDID=$UDID" >> "$GITHUB_ENV"
+
+      - name: Build and run XCTest
+        run: |
+          xcodebuild test \
+            -project blackbox.xcodeproj \
+            -scheme blackbox \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload XCTest result bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: XCTest-results
+          path: TestResults.xcresult
+          if-no-files-found: ignore

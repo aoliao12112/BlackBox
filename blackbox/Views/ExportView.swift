@@ -25,8 +25,14 @@ enum VCFBuilder {
         if let office = card.officePhone, !office.isEmpty { lines.append("TEL;TYPE=WORK:\(escape(office))") }
         if let fax = card.fax, !fax.isEmpty { lines.append("TEL;TYPE=FAX:\(escape(fax))") }
         if let email = card.email, !email.isEmpty { lines.append("EMAIL:\(escape(email))") }
+        for email in card.additionalEmails ?? [] where !email.isEmpty {
+            lines.append("EMAIL:\(escape(email))")
+        }
         if let web = card.website, !web.isEmpty { lines.append("URL:\(escape(web))") }
-        if let addr = card.address, !addr.isEmpty { lines.append("ADR;TYPE=WORK:;;\(escape(addr));;;;") }
+        if let addr = card.address, !addr.isEmpty {
+            let postal = card.postalCode.map(escape) ?? ""
+            lines.append("ADR;TYPE=WORK:;;\(escape(addr));;;\(postal);")
+        }
         if let notes = card.notes, !notes.isEmpty { lines.append("NOTE:\(escape(notes))") }
 
         lines.append("END:VCARD")
@@ -107,6 +113,7 @@ struct ExportView: View {
             try vcf.write(to: url, atomically: true, encoding: .utf8)
             return url
         } catch {
+            saveMessage = "生成 VCF 文件失败：\(error.localizedDescription)"
             return nil
         }
     }
@@ -140,7 +147,22 @@ struct ExportView: View {
         if let e = trim(card.email), !e.isEmpty {
             emails.append(.init(label: CNLabelWork, value: e as NSString))
         }
+        for email in card.additionalEmails ?? [] {
+            if let e = trim(email), !e.isEmpty {
+                emails.append(.init(label: CNLabelWork, value: e as NSString))
+            }
+        }
         contact.emailAddresses = emails
+
+        if let web = trim(card.website), !web.isEmpty {
+            contact.urlAddresses = [.init(label: CNLabelWork, value: web as NSString)]
+        }
+        if let address = trim(card.address), !address.isEmpty {
+            let postal = CNMutablePostalAddress()
+            postal.street = address
+            if let code = trim(card.postalCode) { postal.postalCode = code }
+            contact.postalAddresses = [.init(label: CNLabelWork, value: postal)]
+        }
 
         if let note = trim(card.notes) { contact.note = note }
 

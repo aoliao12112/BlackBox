@@ -24,10 +24,13 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
     
     /// 全局共享实例（生产环境真实持久化）
     static let shared = FileManagerContactRepository()
+
+    private let baseDirectory: URL?
     
     // MARK: - Paths
     
     private var cardsDirectory: URL {
+        if let baseDirectory { return baseDirectory }
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         return docs.appendingPathComponent("business_cards", isDirectory: true)
     }
@@ -42,21 +45,21 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
     
     // MARK: - Init
     
-    init() {
+    /// 测试可传入隔离目录；生产环境默认使用 Documents/business_cards。
+    init(baseDirectory: URL? = nil) {
+        self.baseDirectory = baseDirectory
         try? ensureDirectoryExists(cardsDirectory)
     }
     
     // MARK: - ContactRepositoryProtocol
     
     func fetchAllCards() async throws -> [BusinessCard] {
-        guard FileManager.default.fileExists(atPath: indexFileURL.path),
-              let data = try? Data(contentsOf: indexFileURL),
-              let index = try? Self.makeDecoder().decode(CardIndex.self, from: data) else {
-            return []
-        }
+        guard FileManager.default.fileExists(atPath: indexFileURL.path) else { return [] }
+        let data = try Data(contentsOf: indexFileURL)
+        let index = try Self.makeDecoder().decode(CardIndex.self, from: data)
         var cards: [BusinessCard] = []
         for entry in index.entries {
-            if let card = try? await fetchCard(id: entry.id) {
+            if let card = try await fetchCard(id: entry.id) {
                 cards.append(card)
             }
         }
@@ -67,16 +70,17 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
     func fetchCard(id: UUID) async throws -> BusinessCard? {
         let dir = cardDirectory(for: id)
         let metaURL = dir.appendingPathComponent("meta.json")
-        guard let data = try? Data(contentsOf: metaURL) else { return nil }
+        guard FileManager.default.fileExists(atPath: metaURL.path) else { return nil }
+        let data = try Data(contentsOf: metaURL)
         var card = try Self.makeDecoder().decode(BusinessCard.self, from: data)
         
         let originalURL = dir.appendingPathComponent("original.jpg")
         let processedURL = dir.appendingPathComponent("processed.jpg")
         if FileManager.default.fileExists(atPath: originalURL.path) {
-            card.originalImageData = try? Data(contentsOf: originalURL)
+            card.originalImageData = try Data(contentsOf: originalURL)
         }
         if FileManager.default.fileExists(atPath: processedURL.path) {
-            card.processedImageData = try? Data(contentsOf: processedURL)
+            card.processedImageData = try Data(contentsOf: processedURL)
         }
         return card
     }
@@ -115,9 +119,9 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
         }
         
         // 更新 index
-        if FileManager.default.fileExists(atPath: indexFileURL.path),
-           let data = try? Data(contentsOf: indexFileURL),
-           var index = try? Self.makeDecoder().decode(CardIndex.self, from: data) {
+        if FileManager.default.fileExists(atPath: indexFileURL.path) {
+            let data = try Data(contentsOf: indexFileURL)
+            var index = try Self.makeDecoder().decode(CardIndex.self, from: data)
             index.entries.removeAll { $0.id == id }
             try Self.makeEncoder().encode(index).write(to: indexFileURL)
         }
@@ -147,10 +151,9 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
     
     private func updateIndex(with id: UUID, updatedAt: Date) throws {
         var index: CardIndex
-        if FileManager.default.fileExists(atPath: indexFileURL.path),
-           let data = try? Data(contentsOf: indexFileURL),
-           let existing = try? Self.makeDecoder().decode(CardIndex.self, from: data) {
-            index = existing
+        if FileManager.default.fileExists(atPath: indexFileURL.path) {
+            let data = try Data(contentsOf: indexFileURL)
+            index = try Self.makeDecoder().decode(CardIndex.self, from: data)
             if let idx = index.entries.firstIndex(where: { $0.id == id }) {
                 index.entries[idx] = .init(id: id, updatedAt: updatedAt)
             } else {

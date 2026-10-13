@@ -13,6 +13,7 @@ struct SearchView: View {
     @EnvironmentObject private var router: Router
     @State private var keyword = ""
     @State private var results: [BusinessCard] = []
+    @State private var errorMessage: String?
     
     private let repository: ContactRepositoryProtocol = FileManagerContactRepository.shared
     
@@ -79,9 +80,23 @@ struct SearchView: View {
         .navigationTitle("搜索")
         .navigationBarTitleDisplayMode(.inline)
         .task(id: keyword) {
-            // Week 5 TODO: 调 repository.search(keyword:)
-            try? await Task.sleep(nanoseconds: 200_000_000)
-            results = (try? await repository.search(keyword: keyword)) ?? []
+            do {
+                try await Task.sleep(nanoseconds: 200_000_000)
+                results = try await repository.search(keyword: keyword)
+            } catch is CancellationError {
+                return
+            } catch {
+                results = []
+                errorMessage = "搜索失败：\(error.localizedDescription)"
+            }
+        }
+        .alert("操作失败", isPresented: Binding(
+            get: { errorMessage != nil },
+            set: { if !$0 { errorMessage = nil } }
+        )) {
+            Button("好", role: .cancel) { errorMessage = nil }
+        } message: {
+            Text(errorMessage ?? "")
         }
     }
 }

@@ -40,6 +40,7 @@ struct FieldCorrectionView: View {
                 FieldRow(label: "办公电话", text: binding(\.officePhone))
                 FieldRow(label: "传真", text: binding(\.fax))
                 FieldRow(label: "Email", text: binding(\.email))
+                FieldRow(label: "其他 Email", text: additionalEmailsBinding)
                 FieldRow(label: "网址", text: binding(\.website))
                 FieldRow(label: "地址", text: binding(\.address))
                 FieldRow(label: "邮编", text: binding(\.postalCode))
@@ -120,6 +121,16 @@ struct FieldCorrectionView: View {
                 conf.append(entry)
             }
         }
+        if card.additionalEmails != initial.additionalEmails {
+            let value = (card.additionalEmails ?? []).joined(separator: ", ")
+            let entry = FieldConfidence(fieldName: "additionalEmails", rawValue: value,
+                                        confidence: 1.0, source: .manual)
+            if let idx = conf.firstIndex(where: { $0.fieldName == "additionalEmails" }) {
+                conf[idx] = entry
+            } else {
+                conf.append(entry)
+            }
+        }
         card.fieldConfidence = conf
     }
     
@@ -128,6 +139,18 @@ struct FieldCorrectionView: View {
         Binding(
             get: { self.card[keyPath: keyPath] ?? "" },
             set: { self.card[keyPath: keyPath] = $0.isEmpty ? nil : $0 }
+        )
+    }
+
+    private var additionalEmailsBinding: Binding<String> {
+        Binding(
+            get: { (card.additionalEmails ?? []).joined(separator: ", ") },
+            set: { value in
+                let values = value.split(separator: ",")
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .filter { !$0.isEmpty }
+                card.additionalEmails = values.isEmpty ? nil : values
+            }
         )
     }
 }

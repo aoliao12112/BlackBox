@@ -24,6 +24,8 @@ final class HomeViewModel: ObservableObject {
     
     /// 当前搜索关键词
     @Published var searchKeyword: String = ""
+
+    @Published var errorMessage: String?
     
     // MARK: - 依赖
     
@@ -40,8 +42,10 @@ final class HomeViewModel: ObservableObject {
     func loadCards() async {
         do {
             cards = try await repository.fetchAllCards()
+            errorMessage = nil
         } catch {
             cards = []
+            errorMessage = "读取名片失败：\(error.localizedDescription)"
         }
     }
     
@@ -58,7 +62,7 @@ final class HomeViewModel: ObservableObject {
             try await repository.delete(id: id)
             cards = try await repository.fetchAllCards()
         } catch {
-            cards.removeAll { $0.id == id }
+            errorMessage = "删除失败：\(error.localizedDescription)"
         }
     }
 }

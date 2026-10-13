@@ -160,6 +160,7 @@ struct OCRResultView: View {
             card.officePhone = extracted.officePhone
             card.fax = extracted.fax
             card.email = extracted.email
+            card.additionalEmails = extracted.additionalEmails.isEmpty ? nil : extracted.additionalEmails
             card.website = extracted.website
             card.address = extracted.address
             card.fieldConfidence = extracted.fieldConfidence.isEmpty ? nil : extracted.fieldConfidence

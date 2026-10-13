@@ -31,6 +31,7 @@ struct BusinessCard: Identifiable, Codable, Hashable {
     var officePhone: String?        // 办公电话
     var fax: String?                // 传真（可选字段）
     var email: String?              // 电子邮箱
+    var additionalEmails: [String]? // 其他电子邮箱；可选以兼容旧版持久化数据
     var website: String?            // 网址
     var address: String?            // 地址
     var postalCode: String?         // 邮编（可选字段）
@@ -63,6 +64,7 @@ struct BusinessCard: Identifiable, Codable, Hashable {
             officePhone: nil,
             fax: nil,
             email: nil,
+            additionalEmails: nil,
             website: nil,
             address: nil,
             postalCode: nil,
@@ -109,9 +111,11 @@ extension BusinessCard {
         let lower = keyword.trimmingCharacters(in: .whitespaces).lowercased()
         guard !lower.isEmpty else { return true }
         
-        return [
+        let scalarFields = [
             name, company, jobTitle, mobile, officePhone, email, website, address
-        ].compactMap { $0?.lowercased() }.contains { $0.contains(lower) }
+        ].compactMap { $0?.lowercased() }
+        let emailFields = (additionalEmails ?? []).map { $0.lowercased() }
+        return (scalarFields + emailFields).contains { $0.contains(lower) }
     }
     
     /// 返回非空的联系字段字典（用于调试 / 导出）
@@ -132,6 +136,9 @@ extension BusinessCard {
                   let value = child.value as? String,
                   !value.isEmpty else { continue }
             result.append((label, value))
+        }
+        for value in additionalEmails ?? [] where !value.isEmpty {
+            result.append(("additionalEmail", value))
         }
         return result
     }

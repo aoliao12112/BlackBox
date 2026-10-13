@@ -201,6 +201,7 @@ struct BusinessCard: Identifiable, Codable, Hashable {
     var officePhone: String?        // 办公电话
     var fax: String?                // 传真（可选）
     var email: String?              // 电子邮箱
+    var additionalEmails: [String]? // 其他电子邮箱
     var website: String?            // 网址
     var address: String?            // 地址
     var postalCode: String?         // 邮编（可选）
@@ -240,7 +241,7 @@ struct FieldConfidence: Codable {
 | ID 唯一性 | UUID 全局唯一 |
 | 图片压缩 | 存储前压缩至 JPEG 最大 1024px，quality = 0.7 |
 | tags 关联 | 可多张名片共享同一个 Tag（同 id），删除 Tag 时从所有名片中移除 |
-| 搜索范围 | 搜索匹配 name / company / jobTitle / mobile / email |
+| 搜索范围 | 搜索匹配 name / company / jobTitle / mobile / officePhone / email / additionalEmails / website / address |
 
 ### 4.3 持久化层
 
@@ -290,9 +291,9 @@ struct FieldConfidence: Codable {
 - [x] BusinessCard Schema 定义
 - [x] 页面清单（P1~P10）
 - [x] 状态转换图（扫描流程 + 异常状态）
-- [ ] Reference Test Suite（→ reference_test_suite.md）
-- [ ] Ground Truth 测试数据集（→ Tests/GroundTruth/*.json，30 张）
-- [ ] 项目骨架代码（Models/Services 占位 Protocol）
+- [x] Reference Test Suite（→ reference_test_suite.md）
+- [x] Ground Truth 测试数据集（→ Tests/GroundTruth/*.json + *.jpg，共 35 张）
+- [x] 项目骨架及核心功能代码（Models / Services / Views / Tests）
 
 ---
 

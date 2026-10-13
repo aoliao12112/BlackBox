@@ -12,6 +12,7 @@
     "officePhone": "+86 10-5555-7700",
     "fax": "+86 10-5555-7701",
     "email": "mary.ma@huaxin.example.cn",
+    "additionalEmails": ["events@huaxin.example.cn"],
     "website": "www.huaxin.example.cn",
     "address": "北京市朝阳区东三环北路8号",
     "postalCode": "100027"
@@ -22,7 +23,8 @@
     "mobile",
     "officePhone",
     "fax",
-    "email"
+    "email",
+    "additionalEmails"
   ],
-  "notes": "三条电话线齐全"
+  "notes": "三条电话线和多个 Email 齐全"
 }

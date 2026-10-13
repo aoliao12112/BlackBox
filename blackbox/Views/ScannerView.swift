@@ -17,6 +17,7 @@ struct ScannerView: View {
     // 相册选择器状态
     @State private var showPhotosPicker = false
     @State private var selectedPhotoItem: PhotosPickerItem?
+    @State private var operationError: String?
 
     var body: some View {
         ZStack {
@@ -55,11 +56,26 @@ struct ScannerView: View {
         .onChange(of: selectedPhotoItem) { _, newItem in
             Task {
                 guard let newItem else { return }
-                if let data = try? await newItem.loadTransferable(type: Data.self) {
+                do {
+                    guard let data = try await newItem.loadTransferable(type: Data.self) else {
+                        operationError = "无法读取所选图片"
+                        selectedPhotoItem = nil
+                        return
+                    }
                     navigateToBoundary(imageData: data)
+                } catch {
+                    operationError = "导入图片失败：\(error.localizedDescription)"
                 }
                 selectedPhotoItem = nil
             }
+        }
+        .alert("操作失败", isPresented: Binding(
+            get: { operationError != nil },
+            set: { if !$0 { operationError = nil } }
+        )) {
+            Button("好", role: .cancel) { operationError = nil }
+        } message: {
+            Text(operationError ?? "")
         }
     }
 
@@ -112,8 +128,11 @@ struct ScannerView: View {
             // 拍摄
             Button {
                 Task {
-                    if let data = try? await camera.capturePhoto() {
+                    do {
+                        let data = try await camera.capturePhoto()
                         navigateToBoundary(imageData: data)
+                    } catch {
+                        operationError = "拍照失败：\(error.localizedDescription)"
                     }
                 }
             } label: {

@@ -12,6 +12,7 @@
     "officePhone": "+86 532-5555-6600",
     "fax": "+86 532-5555-6601",
     "email": "tom.sun@xinghai.example.cn",
+    "additionalEmails": ["sales@xinghai.example.cn"],
     "website": "www.xinghai.example.cn",
     "address": "青岛市崂山区海尔路180号",
     "postalCode": "266101"
@@ -22,7 +23,8 @@
     "mobile",
     "officePhone",
     "fax",
-    "email"
+    "email",
+    "additionalEmails"
   ],
-  "notes": "三条电话线齐全"
+  "notes": "三条电话线和多个 Email 齐全"
 }

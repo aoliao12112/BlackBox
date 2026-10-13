@@ -18,6 +18,7 @@ struct CardDetailView: View {
     @State private var showDeleteConfirm = false
     @State private var showAddTag = false
     @State private var newTagName = ""
+    @State private var operationError: String?
     
     private let repository: ContactRepositoryProtocol = FileManagerContactRepository.shared
     
@@ -55,8 +56,12 @@ struct CardDetailView: View {
         ) {
             Button("删除", role: .destructive) {
                 Task {
-                    try? await repository.delete(id: cardID)
-                    router.pop()
+                    do {
+                        try await repository.delete(id: cardID)
+                        router.pop()
+                    } catch {
+                        operationError = "删除失败：\(error.localizedDescription)"
+                    }
                 }
             }
             Button("取消", role: .cancel) {}
@@ -66,13 +71,21 @@ struct CardDetailView: View {
             Button("添加") { Task { await addTag() } }
             Button("取消", role: .cancel) {}
         }
+        .alert("操作失败", isPresented: Binding(
+            get: { operationError != nil },
+            set: { if !$0 { operationError = nil } }
+        )) {
+            Button("好", role: .cancel) { operationError = nil }
+        } message: {
+            Text(operationError ?? "")
+        }
         .task(id: cardID) {
-            card = try? await repository.fetchCard(id: cardID)
+            await reloadCard()
         }
         .onAppear {
             // 从编辑页 pop 回来时重新加载最新数据
             Task {
-                card = try? await repository.fetchCard(id: cardID)
+                await reloadCard()
             }
         }
     }
@@ -132,8 +145,12 @@ struct CardDetailView: View {
             if let email = card.email {
                 ContactRow(label: "Email", value: email, url: makeURL(scheme: "mailto", value: email))
             }
+            ForEach(Array((card.additionalEmails ?? []).enumerated()), id: \.offset) { item in
+                ContactRow(label: "其他 Email", value: item.element,
+                           url: makeURL(scheme: "mailto", value: item.element))
+            }
             if let website = card.website {
-                ContactRow(label: "网址", value: website, url: makeURL(scheme: "https", value: website))
+                ContactRow(label: "网址", value: website, url: websiteURL(website))
             }
             if let address = card.address {
                 ContactRow(label: "地址", value: address, url: nil)
@@ -204,12 +221,25 @@ struct CardDetailView: View {
         guard !name.isEmpty, var current = card else { return }
         if !current.tags.contains(where: { $0.name == name }) {
             // 复用已有同名标签的 id，保证跨名片共享同一 Tag
-            let existingID = (try? await repository.fetchAllCards())?
-                .flatMap { $0.tags }
-                .first(where: { $0.name == name })?.id
-            current.tags.append(Tag(id: existingID ?? UUID(), name: name, colorHex: nil))
-            card = current
-            try? await repository.save(current)
+            do {
+                let existingID = try await repository.fetchAllCards()
+                    .flatMap { $0.tags }
+                    .first(where: { $0.name == name })?.id
+                current.tags.append(Tag(id: existingID ?? UUID(), name: name, colorHex: nil))
+                try await repository.save(current)
+                card = current
+            } catch {
+                operationError = "保存标签失败：\(error.localizedDescription)"
+            }
+        }
+    }
+
+    private func reloadCard() async {
+        do {
+            card = try await repository.fetchCard(id: cardID)
+            if card == nil { operationError = "未找到这张名片" }
+        } catch {
+            operationError = "读取名片失败：\(error.localizedDescription)"
         }
     }
     
@@ -224,8 +254,14 @@ struct CardDetailView: View {
     }
     
     private func makeURL(scheme: String, value: String) -> URL? {
-        let cleaned = value.filter { $0.isNumber || $0 == "+" || $0 == "@" || $0 == "." || $0 == "-" || $0 == "/" || $0 == ":" }
-        return URL(string: "\(scheme):\(cleaned)")
+        guard let encoded = value.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else { return nil }
+        return URL(string: "\(scheme):\(encoded)")
+    }
+
+    private func websiteURL(_ value: String) -> URL? {
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let url = URL(string: trimmed), url.scheme != nil { return url }
+        return URL(string: "https://\(trimmed)")
     }
 }
 

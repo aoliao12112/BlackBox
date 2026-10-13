@@ -12,6 +12,7 @@
     "officePhone": "+86 21-5555-8800",
     "fax": "+86 21-5555-8801",
     "email": "ming.zhu@jincheng.example.cn",
+    "additionalEmails": ["east.sales@jincheng.example.cn", "service@jincheng.example.cn"],
     "website": "www.jincheng.example.cn",
     "address": "上海市徐汇区漕溪北路1000号",
     "postalCode": "200030"
@@ -22,7 +23,8 @@
     "mobile",
     "officePhone",
     "fax",
-    "email"
+    "email",
+    "additionalEmails"
   ],
-  "notes": "三条电话线齐全"
+  "notes": "三条电话线和三个 Email 齐全"
 }

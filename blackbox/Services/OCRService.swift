@@ -72,6 +72,7 @@ struct FieldExtractionResult {
     var officePhone: String?
     var fax: String?
     var email: String?
+    var additionalEmails: [String]
     var website: String?
     var address: String?
     

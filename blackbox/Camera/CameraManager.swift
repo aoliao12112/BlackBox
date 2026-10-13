@@ -74,7 +74,7 @@ final class CameraManager: ObservableObject {
 
     // MARK: - Session
 
-    /// 配置 session（.photo 模式，前摄像头优先）
+    /// 配置 session（.photo 模式，后置摄像头优先）
     func setupSession() {
         sessionQueue.async { [weak self] in
             guard let self else { return }
@@ -84,10 +84,10 @@ final class CameraManager: ObservableObject {
 
             self.session.sessionPreset = .photo
 
-            // 前摄像头优先
+            // 扫描纸质名片必须优先使用后置摄像头；无后摄环境再回退。
             let device: AVCaptureDevice? = {
-                let front = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
-                return front ?? AVCaptureDevice.default(for: .video)
+                let back = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+                return back ?? AVCaptureDevice.default(for: .video)
             }()
 
             guard let device else {

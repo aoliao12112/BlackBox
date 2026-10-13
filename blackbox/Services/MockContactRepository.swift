@@ -78,6 +78,7 @@ extension BusinessCard {
             officePhone: nil,
             fax: nil,
             email: email,
+            additionalEmails: nil,
             website: website,
             address: address,
             postalCode: nil,

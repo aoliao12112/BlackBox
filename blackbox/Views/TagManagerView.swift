@@ -17,6 +17,7 @@ struct TagManagerView: View {
 
     @State private var tags: [(name: String, count: Int)] = []
     @State private var tagToDelete: String?
+    @State private var errorMessage: String?
 
     var body: some View {
         Group {
@@ -71,28 +72,44 @@ struct TagManagerView: View {
                 Text("将从所有名片中移除该标签")
             }
         )
+        .alert("操作失败", isPresented: Binding(
+            get: { errorMessage != nil },
+            set: { if !$0 { errorMessage = nil } }
+        )) {
+            Button("好", role: .cancel) { errorMessage = nil }
+        } message: {
+            Text(errorMessage ?? "")
+        }
         .task { await reload() }
     }
 
     private func reload() async {
-        let cards = (try? await repository.fetchAllCards()) ?? []
-        var counts: [String: Int] = [:]
-        for card in cards {
-            for tag in card.tags { counts[tag.name, default: 0] += 1 }
+        do {
+            let cards = try await repository.fetchAllCards()
+            var counts: [String: Int] = [:]
+            for card in cards {
+                for tag in card.tags { counts[tag.name, default: 0] += 1 }
+            }
+            tags = counts.map { ($0.key, $0.value) }.sorted { $0.0 < $1.0 }
+        } catch {
+            errorMessage = "读取标签失败：\(error.localizedDescription)"
         }
-        tags = counts.map { ($0.key, $0.value) }.sorted { $0.0 < $1.0 }
     }
 
     private func deleteTag(_ name: String) async {
-        let cards = (try? await repository.fetchAllCards()) ?? []
-        for var card in cards {
-            let before = card.tags.count
-            card.tags.removeAll { $0.name == name }
-            if card.tags.count != before {
-                try? await repository.save(card)
+        do {
+            let cards = try await repository.fetchAllCards()
+            for var card in cards {
+                let before = card.tags.count
+                card.tags.removeAll { $0.name == name }
+                if card.tags.count != before {
+                    try await repository.save(card)
+                }
             }
+            await reload()
+        } catch {
+            errorMessage = "删除标签失败：\(error.localizedDescription)"
         }
-        await reload()
     }
 }
 

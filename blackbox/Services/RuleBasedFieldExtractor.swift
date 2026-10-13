@@ -23,7 +23,7 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
         var result = FieldExtractionResult(
             name: nil, company: nil, jobTitle: nil,
             mobile: nil, officePhone: nil, fax: nil,
-            email: nil, website: nil, address: nil,
+            email: nil, additionalEmails: [], website: nil, address: nil,
             fieldConfidence: []
         )
 
@@ -31,21 +31,30 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
         var consumed: [Int: String] = [:]
 
         for (idx, line) in lines.enumerated() {
-            // 优先级：email > website > mobile > officePhone > 传真 > 地址 > 公司 > 职位
+            // 优先级：email > website > 传真 > mobile > officePhone > 地址 > 公司 > 职位
             if consumed[idx] != nil { continue }
 
-            if result.email == nil, let v = Self.extractEmail(line) {
-                result.email = v; consumed[idx] = "email"
-                add(&result, field: "email", value: v, confidence: 0.95)
+            let emails = Self.extractEmails(line)
+            if !emails.isEmpty {
+                for value in emails where value != result.email && !result.additionalEmails.contains(value) {
+                    if result.email == nil {
+                        result.email = value
+                        add(&result, field: "email", value: value, confidence: 0.95)
+                    } else {
+                        result.additionalEmails.append(value)
+                        add(&result, field: "additionalEmail", value: value, confidence: 0.95)
+                    }
+                }
+                consumed[idx] = "email"
             } else if result.website == nil, let v = Self.extractWebsite(line) {
                 result.website = v; consumed[idx] = "website"
                 add(&result, field: "website", value: v, confidence: 0.90)
-            } else if result.mobile == nil, let v = Self.extractMobile(line) {
-                result.mobile = v; consumed[idx] = "mobile"
-                add(&result, field: "mobile", value: v, confidence: 0.92)
             } else if result.fax == nil, let v = Self.extractFax(line) {
                 result.fax = v; consumed[idx] = "fax"
                 add(&result, field: "fax", value: v, confidence: 0.85)
+            } else if result.mobile == nil, let v = Self.extractMobile(line) {
+                result.mobile = v; consumed[idx] = "mobile"
+                add(&result, field: "mobile", value: v, confidence: 0.92)
             } else if result.officePhone == nil, let v = Self.extractOfficePhone(line) {
                 result.officePhone = v; consumed[idx] = "officePhone"
                 add(&result, field: "officePhone", value: v, confidence: 0.85)
@@ -61,12 +70,11 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
             }
         }
 
-        // 姓名：从「未被任何字段占用」的行里，挑最短、不含数字/符号的一行
+        // 姓名仅接受明确的人名形态；不能把 Apple 等单个品牌词猜成人名。
         if result.name == nil {
             if let (_, name) = Self.inferName(lines: lines, consumed: consumed) {
                 result.name = name
-                // 姓名是推断性质，置信度给低
-                add(&result, field: "name", value: name, confidence: 0.45)
+                add(&result, field: "name", value: name, confidence: 0.75)
             }
         }
 
@@ -83,24 +91,30 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
         )
     }
 
-    /// 推断姓名：跳过已被占用的行，选一条「短且像人名」的行
+    /// 保守识别人名：2~4 个纯汉字，或 2~4 个首字母大写的英文单词。
     private static func inferName(lines: [String], consumed: [Int: String]) -> (Int, String)? {
-        // 姓名特征：长度 2~20，不含数字、@、://、www、路/街/号/大厦/省/市/公司/集团 等强字段词
         let excludedKeywords = ["公司", "集团", "大学", "学院", "研究院", "科技", "科技有限",
                                 "总监", "经理", "工程师", "总裁", "教授", "博士",
                                 "省", "市", "区", "路", "街", "号", "大厦", "楼", "室",
                                 "有限公司", "Ltd", "Inc", "Corp", "Co", "@", "www", "http"]
         for (idx, line) in lines.enumerated() {
             guard consumed[idx] == nil else { continue }
-            // 排除含数字（电话/邮编）
             if line.rangeOfCharacter(from: .decimalDigits) != nil { continue }
-            // 排除过长（可能是地址/公司全称）
-            guard line.count <= 20 else { continue }
-            // 排除含强字段关键词的行
-            let containsKeyword = excludedKeywords.contains { line.contains($0) }
+            guard line.count <= 40 else { continue }
+            let containsKeyword = excludedKeywords.contains {
+                line.range(of: $0, options: [.caseInsensitive, .diacriticInsensitive]) != nil
+            }
             if containsKeyword { continue }
-            // 中文名 2~4 字，或英文名（首字母大写 + 空格分隔）
-            if line.count >= 2 {
+            let chineseName = line.range(of: #"^[\p{Han}]{2,4}$"#, options: .regularExpression) != nil
+            let englishName = line.range(
+                of: #"^[A-Z][A-Za-z'’-]+(?:\s+[A-Z][A-Za-z'’-]+){1,3}$"#,
+                options: .regularExpression
+            ) != nil
+            let bilingualName = line.range(
+                of: #"^[\p{Han}]{2,4}\s*\([A-Z][A-Za-z'’-]+(?:\s+[A-Z][A-Za-z'’-]+){1,3}\)$"#,
+                options: .regularExpression
+            ) != nil
+            if chineseName || englishName || bilingualName {
                 return (idx, line)
             }
         }
@@ -109,10 +123,12 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
 
     // MARK: - 正则抽取
 
-    private static func extractEmail(_ line: String) -> String? {
+    private static func extractEmails(_ line: String) -> [String] {
         let pattern = #"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}"#
-        guard let range = line.range(of: pattern, options: .regularExpression) else { return nil }
-        return String(line[range])
+        guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }
+        let ns = line as NSString
+        return regex.matches(in: line, range: NSRange(location: 0, length: ns.length))
+            .map { ns.substring(with: $0.range) }
     }
 
     private static func extractWebsite(_ line: String) -> String? {
@@ -131,32 +147,30 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
         // 中国手机号：1[3-9]xxxxxxxxx，允许 +86 / 86 / 空格 / 连字符
         let cnPattern = #"(?:\+?86[\s\-]?)?1[3-9]\d[\s\-]?\d{4}[\s\-]?\d{4}"#
         if let range = line.range(of: cnPattern, options: .regularExpression) { return String(line[range]) }
-        // 国际手机号：+1-555-123-4567 这类（+ 号开头，含数字和连字符）
-        let intlPattern = #"\+\d{1,3}[\s\-]\d{3}[\s\-]\d{3}[\s\-]\d{4}"#
-        if let range = line.range(of: intlPattern, options: .regularExpression) { return String(line[range]) }
-        // 纯 "手机/Mobile/Cell" 标签后跟数字（"电话"留给座机）
-        let labelPattern = #"(?:手机|Mobile|Cell)[:：\s]+(\d[\d\s\-]{6,})"#
-        if let range = line.range(of: labelPattern, options: .regularExpression),
-           let numRange = line[range].range(of: #"\d[\d\s\-]{6,}"#, options: .regularExpression) {
-            return String(line[range][numRange])
+        // 国际号码只有在明确标注 Mobile/Cell/手机时才归为手机，避免误判座机。
+        let labelPattern = #"(?i)(?:手机|Mobile|Cell)[:：\s]+(\+?[0-9][0-9\s\-()]{6,}[0-9])"#
+        if let value = firstCapture(in: line, pattern: labelPattern) {
+            return value.trimmingCharacters(in: .whitespaces)
         }
         return nil
     }
 
     private static func extractOfficePhone(_ line: String) -> String? {
-        // 固定电话：0xx-xxxxxxx 或 (0xx) xxxxxxx，且不是手机号
+        // 固定电话：支持 +86 21-6666-8888、021-66668888 等常见格式。
         guard extractMobile(line) == nil else { return nil }
-        let pattern = #"(?:\(?0\d{2,3}\)?[\s\-]?)?\d{3,4}[\s\-]\d{7,8}"#
-        if let range = line.range(of: pattern, options: .regularExpression) { return String(line[range]) }
-        // 带标签的座机：办公/座机/Tel/电话/Office，用捕获组保留完整号码（含括号）
-        let labelPattern = #"(?:办公|座机|Tel|电话|Office)[:：\s]+([0-9\s\-()]{7,})"#
-        return firstCapture(in: line, pattern: labelPattern)
+        let labelPattern = #"(?i)(?:办公|座机|Tel|电话|Office)[:：\s]+(\+?[0-9][0-9\s\-()]{6,}[0-9])"#
+        if let value = firstCapture(in: line, pattern: labelPattern) {
+            return value.trimmingCharacters(in: .whitespaces)
+        }
+        let pattern = #"(?:\+?\d{1,3}[\s\-])?(?:\(?0?\d{2,3}\)?[\s\-])\d{3,4}[\s\-]?\d{4}"#
+        guard let range = line.range(of: pattern, options: .regularExpression) else { return nil }
+        return String(line[range])
     }
 
     /// 传真：仅当带 Fax/传真 标签时识别，避免和座机串号
     private static func extractFax(_ line: String) -> String? {
-        let labelPattern = #"(?:Fax|传真)[:：\s]+([0-9\s\-()]{7,})"#
-        return firstCapture(in: line, pattern: labelPattern)
+        let labelPattern = #"(?i)(?:Fax|传真)[:：\s]+(\+?[0-9][0-9\s\-()]{6,}[0-9])"#
+        return firstCapture(in: line, pattern: labelPattern)?.trimmingCharacters(in: .whitespaces)
     }
 
     /// 取正则第一个捕获组，用于「带标签」字段，避免丢掉号码里的括号/前缀
