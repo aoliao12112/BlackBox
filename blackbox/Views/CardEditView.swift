@@ -13,14 +13,14 @@ struct CardEditView: View {
     @EnvironmentObject private var router: Router
     @State private var card: BusinessCard
     
-    let repository: ContactRepositoryProtocol = MockContactRepository()
+    let repository: ContactRepositoryProtocol = FileManagerContactRepository.shared
     
     init(card: BusinessCard) {
         _card = State(initialValue: card)
     }
     
     var body: some View {
-        FieldCorrectionView(card: card)
+        FieldCorrectionView(card: card, saveDestination: .pop)
             .navigationTitle("编辑名片")
     }
 }

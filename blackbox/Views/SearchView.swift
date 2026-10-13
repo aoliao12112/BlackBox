@@ -14,7 +14,7 @@ struct SearchView: View {
     @State private var keyword = ""
     @State private var results: [BusinessCard] = []
     
-    private let repository: ContactRepositoryProtocol = MockContactRepository()
+    private let repository: ContactRepositoryProtocol = FileManagerContactRepository.shared
     
     var body: some View {
         VStack(spacing: 0) {

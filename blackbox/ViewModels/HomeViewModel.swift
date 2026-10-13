@@ -31,16 +31,18 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Init
     
-    init(repository: ContactRepositoryProtocol? = nil) {
-        self.repository = repository ?? MockContactRepository()
+    init(repository: ContactRepositoryProtocol = FileManagerContactRepository.shared) {
+        self.repository = repository
     }
     
-    // MARK: - 数据加载（Week 2 实现）
+    // MARK: - 数据加载
     
     func loadCards() async {
-        // Week 2 TODO: 从 repository.fetchAllCards() 加载
-        // 目前用 Mock 数据占位
-        cards = MockContactRepository.sampleCards
+        do {
+            cards = try await repository.fetchAllCards()
+        } catch {
+            cards = []
+        }
     }
     
     // MARK: - 搜索（Week 5 实现）
@@ -52,7 +54,11 @@ final class HomeViewModel: ObservableObject {
     // MARK: - 删除（Week 5 实现）
     
     func deleteCard(id: UUID) async {
-        // Week 5 TODO: repository.delete(id:)
-        cards.removeAll { $0.id == id }
+        do {
+            try await repository.delete(id: id)
+            cards = try await repository.fetchAllCards()
+        } catch {
+            cards.removeAll { $0.id == id }
+        }
     }
 }

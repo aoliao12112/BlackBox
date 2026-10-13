@@ -22,6 +22,9 @@ private struct CardIndex: Codable {
 /// FileManager + JSON 持久化 ContactRepository 实现
 final class FileManagerContactRepository: ContactRepositoryProtocol {
     
+    /// 全局共享实例（生产环境真实持久化）
+    static let shared = FileManagerContactRepository()
+    
     // MARK: - Paths
     
     private var cardsDirectory: URL {
@@ -48,7 +51,7 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
     func fetchAllCards() async throws -> [BusinessCard] {
         guard FileManager.default.fileExists(atPath: indexFileURL.path),
               let data = try? Data(contentsOf: indexFileURL),
-              let index = try? JSONDecoder().decode(CardIndex.self, from: data) else {
+              let index = try? Self.makeDecoder().decode(CardIndex.self, from: data) else {
             return []
         }
         var cards: [BusinessCard] = []
@@ -57,14 +60,15 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
                 cards.append(card)
             }
         }
-        return cards
+        // 协议约定：按创建时间倒序
+        return cards.sorted { $0.createdAt > $1.createdAt }
     }
     
     func fetchCard(id: UUID) async throws -> BusinessCard? {
         let dir = cardDirectory(for: id)
         let metaURL = dir.appendingPathComponent("meta.json")
         guard let data = try? Data(contentsOf: metaURL) else { return nil }
-        var card = try JSONDecoder().decode(BusinessCard.self, from: data)
+        var card = try Self.makeDecoder().decode(BusinessCard.self, from: data)
         
         let originalURL = dir.appendingPathComponent("original.jpg")
         let processedURL = dir.appendingPathComponent("processed.jpg")
@@ -87,17 +91,17 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
         cardToSave.originalImageData = nil   // 图片单独存
         cardToSave.processedImageData = nil
         
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        let metaData = try encoder.encode(cardToSave)
+        let metaData = try Self.makeEncoder().encode(cardToSave)
         try metaData.write(to: dir.appendingPathComponent("meta.json"))
         
-        // 存图片
+        // 存图片（压缩至最长边 1024px / JPEG 0.7，见 spec §4.2）
         if let original = card.originalImageData {
-            try original.write(to: dir.appendingPathComponent("original.jpg"))
+            let data = UIImage(data: original).flatMap { ImageCompressor.compress($0) } ?? original
+            try data.write(to: dir.appendingPathComponent("original.jpg"))
         }
         if let processed = card.processedImageData {
-            try processed.write(to: dir.appendingPathComponent("processed.jpg"))
+            let data = UIImage(data: processed).flatMap { ImageCompressor.compress($0) } ?? processed
+            try data.write(to: dir.appendingPathComponent("processed.jpg"))
         }
         
         // 更新 index
@@ -113,11 +117,9 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
         // 更新 index
         if FileManager.default.fileExists(atPath: indexFileURL.path),
            let data = try? Data(contentsOf: indexFileURL),
-           var index = try? JSONDecoder().decode(CardIndex.self, from: data) {
+           var index = try? Self.makeDecoder().decode(CardIndex.self, from: data) {
             index.entries.removeAll { $0.id == id }
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .iso8601
-            try encoder.encode(index).write(to: indexFileURL)
+            try Self.makeEncoder().encode(index).write(to: indexFileURL)
         }
     }
     
@@ -147,7 +149,7 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
         var index: CardIndex
         if FileManager.default.fileExists(atPath: indexFileURL.path),
            let data = try? Data(contentsOf: indexFileURL),
-           let existing = try? JSONDecoder().decode(CardIndex.self, from: data) {
+           let existing = try? Self.makeDecoder().decode(CardIndex.self, from: data) {
             index = existing
             if let idx = index.entries.firstIndex(where: { $0.id == id }) {
                 index.entries[idx] = .init(id: id, updatedAt: updatedAt)
@@ -157,10 +159,22 @@ final class FileManagerContactRepository: ContactRepositoryProtocol {
         } else {
             index = CardIndex(entries: [.init(id: id, updatedAt: updatedAt)])
         }
+        try ensureDirectoryExists(cardsDirectory)
+        try Self.makeEncoder().encode(index).write(to: indexFileURL)
+    }
+    
+    // MARK: - Coding 辅助（统一 ISO8601，避免编码/解码策略不一致）
+    
+    private static func makeEncoder() -> JSONEncoder {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
-        try ensureDirectoryExists(cardsDirectory)
-        try encoder.encode(index).write(to: indexFileURL)
+        return encoder
+    }
+    
+    private static func makeDecoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
     }
 }
 

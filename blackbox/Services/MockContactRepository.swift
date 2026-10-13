@@ -11,7 +11,11 @@
 import Foundation
 
 /// 内存中的 Mock 仓库 —— Week 2/5 替换为真实持久化
+/// 使用 shared 单例，所有 View 共享同一份数据
 final class MockContactRepository: ContactRepositoryProtocol {
+    
+    /// 全局共享实例 —— 所有 View 通过这个来保证状态一致
+    static let shared = MockContactRepository()
     
     static let sampleCards: [BusinessCard] = [
         BusinessCard.makeSample(name: "王小明", company: "上海智联科技", mobile: "+86 138-0000-0001"),

@@ -38,20 +38,25 @@ struct HomeView: View {
         }
         .navigationTitle("名片夹")
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: { router.navigate(to: .scanner) }) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button { router.navigate(to: .search) } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+                Button { router.navigate(to: .tagManager) } label: {
+                    Image(systemName: "tag")
+                }
+                Button { router.navigate(to: .scanner) } label: {
                     Image(systemName: "camera.viewfinder")
                 }
             }
         }
         .confirmationDialog(
-            "删除这张名片？",
+            Text("删除这张名片？"),
             isPresented: .init(
                 get: { cardToDelete != nil },
                 set: { if !$0 { cardToDelete = nil } }
             ),
             titleVisibility: .visible,
-            role: .destructive,
             actions: {
                 Button("删除", role: .destructive) {
                     if let card = cardToDelete {

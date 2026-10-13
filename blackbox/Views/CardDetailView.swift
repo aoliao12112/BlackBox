@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct CardDetailView: View {
     
@@ -15,65 +16,15 @@ struct CardDetailView: View {
     
     @State private var card: BusinessCard?
     @State private var showDeleteConfirm = false
+    @State private var showAddTag = false
+    @State private var newTagName = ""
     
-    private let repository: ContactRepositoryProtocol = MockContactRepository()
+    private let repository: ContactRepositoryProtocol = FileManagerContactRepository.shared
     
     var body: some View {
         Group {
             if let card {
-                List {
-                    Section {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(card.name ?? "(未命名)")
-                                .font(.title2.bold())
-                            if let company = card.company {
-                                Text(company)
-                                    .font(.headline)
-                                    .foregroundStyle(.secondary)
-                            }
-                            if let jobTitle = card.jobTitle {
-                                Text(jobTitle)
-                                    .font(.subheadline)
-                                    .foregroundStyle(.tertiary)
-                            }
-                        }
-                        .padding(.vertical, 4)
-                    }
-                    
-                    Section(header: Text("联系方式")) {
-                        if let mobile = card.mobile {
-                            ContactRow(label: "手机", value: mobile, url: URL(string: "tel:\(mobile.filter { $0.isNumber || $0 == "+" })"))
-                        }
-                        if let phone = card.officePhone {
-                            ContactRow(label: "办公电话", value: phone, url: URL(string: "tel:\(phone.filter { $0.isNumber || $0 == "+" })"))
-                        }
-                        if let email = card.email {
-                            ContactRow(label: "Email", value: email, url: URL(string: "mailto:\(email)"))
-                        }
-                        if let website = card.website {
-                            ContactRow(label: "网址", value: website, url: URL(string: "https://\(website)"))
-                        }
-                        if let address = card.address {
-                            ContactRow(label: "地址", value: address, url: nil)
-                        }
-                    }
-                    
-                    if !card.tags.isEmpty {
-                        Section(header: Text("标签")) {
-                            FlowLayout(spacing: 6) {
-                                ForEach(card.tags) { tag in
-                                    Text(tag.name)
-                                        .font(.caption)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 4)
-                                        .background(Color.accentColor.opacity(0.15))
-                                        .foregroundColor(Color.accentColor)
-                                        .clipShape(Capsule())
-                                }
-                            }
-                        }
-                    }
-                }
+                cardList(card)
             } else {
                 ProgressView()
             }
@@ -86,6 +37,9 @@ struct CardDetailView: View {
                     Button {
                         if let card { router.navigate(to: .cardEdit(card: card)) }
                     } label: { Label("编辑", systemImage: "pencil") }
+                    Button {
+                        if let card { router.navigate(to: .export(card: card)) }
+                    } label: { Label("导出", systemImage: "square.and.arrow.up") }
                     Button(role: .destructive) {
                         showDeleteConfirm = true
                     } label: { Label("删除", systemImage: "trash") }
@@ -94,7 +48,11 @@ struct CardDetailView: View {
                 }
             }
         }
-        .confirmationDialog("删除这张名片？", isPresented: $showDeleteConfirm, role: .destructive, titleVisibility: .visible) {
+        .confirmationDialog(
+            Text("删除这张名片？"),
+            isPresented: $showDeleteConfirm,
+            titleVisibility: .visible
+        ) {
             Button("删除", role: .destructive) {
                 Task {
                     try? await repository.delete(id: cardID)
@@ -103,9 +61,171 @@ struct CardDetailView: View {
             }
             Button("取消", role: .cancel) {}
         }
-        .task {
+        .alert("添加标签", isPresented: $showAddTag) {
+            TextField("标签名称", text: $newTagName)
+            Button("添加") { Task { await addTag() } }
+            Button("取消", role: .cancel) {}
+        }
+        .task(id: cardID) {
             card = try? await repository.fetchCard(id: cardID)
         }
+        .onAppear {
+            // 从编辑页 pop 回来时重新加载最新数据
+            Task {
+                card = try? await repository.fetchCard(id: cardID)
+            }
+        }
+    }
+    
+    // MARK: - Private Views (拆小以避免编译器超时)
+    
+    @ViewBuilder
+    private func cardList(_ card: BusinessCard) -> some View {
+        List {
+            imagesSection(card)
+            headerSection(card)
+            contactSection(card)
+            tagsSection(card)
+            notesSection(card)
+        }
+        .listStyle(.insetGrouped)
+    }
+    
+    @ViewBuilder
+    private func headerSection(_ card: BusinessCard) -> some View {
+        Section {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(card.name ?? "(未命名)")
+                    .font(.title2.bold())
+                if let company = card.company {
+                    Text(company)
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                }
+                if let jobTitle = card.jobTitle {
+                    Text(jobTitle)
+                        .font(.subheadline)
+                        .foregroundStyle(.tertiary)
+                }
+                if let department = card.department {
+                    Text(department)
+                        .font(.subheadline)
+                        .foregroundStyle(.tertiary)
+                }
+            }
+            .padding(.vertical, 4)
+        }
+    }
+    
+    @ViewBuilder
+    private func contactSection(_ card: BusinessCard) -> some View {
+        Section(header: Text("联系方式")) {
+            if let mobile = card.mobile {
+                ContactRow(label: "手机", value: mobile, url: makeURL(scheme: "tel", value: mobile))
+            }
+            if let phone = card.officePhone {
+                ContactRow(label: "办公电话", value: phone, url: makeURL(scheme: "tel", value: phone))
+            }
+            if let fax = card.fax {
+                ContactRow(label: "传真", value: fax, url: makeURL(scheme: "tel", value: fax))
+            }
+            if let email = card.email {
+                ContactRow(label: "Email", value: email, url: makeURL(scheme: "mailto", value: email))
+            }
+            if let website = card.website {
+                ContactRow(label: "网址", value: website, url: makeURL(scheme: "https", value: website))
+            }
+            if let address = card.address {
+                ContactRow(label: "地址", value: address, url: nil)
+            }
+            if let postalCode = card.postalCode {
+                ContactRow(label: "邮编", value: postalCode, url: nil)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func tagsSection(_ card: BusinessCard) -> some View {
+        Section(header: Text("标签")) {
+            if !card.tags.isEmpty {
+                HStack(spacing: 8) {
+                    ForEach(card.tags) { tag in
+                        Text(tag.name)
+                            .font(.caption)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 4)
+                            .background(Color.accentColor.opacity(0.15))
+                            .foregroundColor(Color.accentColor)
+                            .clipShape(Capsule())
+                    }
+                }
+                .padding(.vertical, 2)
+            }
+            Button {
+                newTagName = ""
+                showAddTag = true
+            } label: {
+                Label("添加标签", systemImage: "plus.circle")
+            }
+        }
+    }
+    
+    // MARK: - Helpers
+    
+    @ViewBuilder
+    private func imagesSection(_ card: BusinessCard) -> some View {
+        let original = card.originalImageData.flatMap { UIImage(data: $0) }
+        let processed = card.processedImageData.flatMap { UIImage(data: $0) }
+        if original != nil || processed != nil {
+            Section(header: Text("图片")) {
+                HStack(spacing: 12) {
+                    if let original { labeledImage(original, caption: "原图") }
+                    if let processed { labeledImage(processed, caption: "校正图") }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func labeledImage(_ image: UIImage, caption: String) -> some View {
+        VStack(spacing: 4) {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            Text(caption)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+    }
+    
+    private func addTag() async {
+        let name = newTagName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !name.isEmpty, var current = card else { return }
+        if !current.tags.contains(where: { $0.name == name }) {
+            // 复用已有同名标签的 id，保证跨名片共享同一 Tag
+            let existingID = (try? await repository.fetchAllCards())?
+                .flatMap { $0.tags }
+                .first(where: { $0.name == name })?.id
+            current.tags.append(Tag(id: existingID ?? UUID(), name: name, colorHex: nil))
+            card = current
+            try? await repository.save(current)
+        }
+    }
+    
+    @ViewBuilder
+    private func notesSection(_ card: BusinessCard) -> some View {
+        if let notes = card.notes, !notes.isEmpty {
+            Section(header: Text("备注")) {
+                Text(notes)
+                    .font(.body)
+            }
+        }
+    }
+    
+    private func makeURL(scheme: String, value: String) -> URL? {
+        let cleaned = value.filter { $0.isNumber || $0 == "+" || $0 == "@" || $0 == "." || $0 == "-" || $0 == "/" || $0 == ":" }
+        return URL(string: "\(scheme):\(cleaned)")
     }
 }
 

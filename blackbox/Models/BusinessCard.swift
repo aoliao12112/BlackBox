@@ -7,6 +7,7 @@
 //  Spec reference: BlackBoxSpec/spec.md §4
 
 import Foundation
+import UIKit
 
 // MARK: - 名片数据模型
 
