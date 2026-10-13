@@ -2,6 +2,8 @@
 
 ## 1. 编译与单元测试
 
+GitHub Actions 基线：Xcode 26.6、iPhone 17 Pro Simulator，构建成功且 7 个 XCTest 全部通过。Mac 上仍需再跑一次，确认本机 Xcode/Simulator 环境一致。
+
 1. 用 Xcode 打开 `blackbox.xcodeproj`，确认 deployment target 为 iOS 17.0。
 2. 选择可用 iPhone Simulator，执行 `Product > Test`。
 3. 保存测试报告截图；任何编译警告或测试失败都先修复，不允许跳过。
