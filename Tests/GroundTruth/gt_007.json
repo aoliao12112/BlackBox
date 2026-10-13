@@ -1,20 +1,26 @@
 {
   "card_id": "gt_007",
-  "description": "复杂 Logo + 彩色背景",
+  "category": "中文名片",
+  "description": "中文名片 - 标准正平面片",
   "image_file": "gt_007.jpg",
   "ground_truth": {
-    "name": "Emma Wilson",
-    "company": "Neon Creative Agency",
-    "jobTitle": "Brand Strategist",
-    "department": "Strategy Team",
-    "mobile": "+44 7700-900123",
-    "officePhone": "+44 20-7946-0958",
-    "fax": null,
-    "email": "emma.wilson@neon-creative.example.co.uk",
-    "website": "www.neon-creative.example.co.uk",
-    "address": "45 Design Street, London, SE1 9DE, UK",
-    "postalCode": null
+    "name": "赵磊",
+    "company": "广州市启铭设计咨询有限公司",
+    "jobTitle": "设计总监",
+    "department": "创意部",
+    "mobile": "+86 135-0000-1007",
+    "officePhone": "+86 20-5555-8899",
+    "fax": "+86 20-5555-8800",
+    "email": "zhaolei@qiming.example.cn",
+    "website": "www.qiming.example.cn",
+    "address": "广州市天河区珠江新城华穗路180号",
+    "postalCode": "510623"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "深色背景 + 彩色 Logo 干扰 OCR"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "含传真"
 }

@@ -1,0 +1,28 @@
+{
+  "card_id": "gt_027",
+  "category": "多电话/多Email",
+  "description": "多电话名片 - Mobile + Office + Fax",
+  "image_file": "gt_027.jpg",
+  "ground_truth": {
+    "name": "朱明 (Ming Zhu)",
+    "company": "上海锦程医疗器械有限公司",
+    "jobTitle": "区域销售总监",
+    "department": "销售部",
+    "mobile": "+86 137-5555-4027",
+    "officePhone": "+86 21-5555-8800",
+    "fax": "+86 21-5555-8801",
+    "email": "ming.zhu@jincheng.example.cn",
+    "website": "www.jincheng.example.cn",
+    "address": "上海市徐汇区漕溪北路1000号",
+    "postalCode": "200030"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "officePhone",
+    "fax",
+    "email"
+  ],
+  "notes": "三条电话线齐全"
+}

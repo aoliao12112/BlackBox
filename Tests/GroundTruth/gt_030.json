@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_030",
+  "category": "字段缺失",
+  "description": "字段缺失名片 - 无手机/无邮编",
+  "image_file": "gt_030.jpg",
+  "ground_truth": {
+    "name": "郭婷 (Tina Guo)",
+    "company": "杭州西湖文化传播有限公司",
+    "jobTitle": "编辑",
+    "department": "编辑部",
+    "mobile": null,
+    "officePhone": "+86 571-5555-1100",
+    "fax": null,
+    "email": "tina.guo@xihu.example.cn",
+    "website": "www.xihu.example.cn",
+    "address": "杭州市上城区南山路15号",
+    "postalCode": null
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "officePhone",
+    "email"
+  ],
+  "notes": "mobile/postalCode 应识别为 null"
+}

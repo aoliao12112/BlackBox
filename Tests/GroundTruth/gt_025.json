@@ -1,0 +1,28 @@
+{
+  "card_id": "gt_025",
+  "category": "多电话/多Email",
+  "description": "多电话名片 - Mobile + Office + Fax",
+  "image_file": "gt_025.jpg",
+  "ground_truth": {
+    "name": "孙涛 (Tom Sun)",
+    "company": "青岛星海国际贸易有限公司",
+    "jobTitle": "商务经理",
+    "department": "商务部",
+    "mobile": "+86 138-5555-4025",
+    "officePhone": "+86 532-5555-6600",
+    "fax": "+86 532-5555-6601",
+    "email": "tom.sun@xinghai.example.cn",
+    "website": "www.xinghai.example.cn",
+    "address": "青岛市崂山区海尔路180号",
+    "postalCode": "266101"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "officePhone",
+    "fax",
+    "email"
+  ],
+  "notes": "三条电话线齐全"
+}

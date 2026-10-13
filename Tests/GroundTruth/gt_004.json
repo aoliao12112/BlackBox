@@ -1,20 +1,26 @@
 {
   "card_id": "gt_004",
-  "description": "多电话名片 - Mobile + Office + Fax 三条线",
+  "category": "中文名片",
+  "description": "中文名片 - 标准正平面片",
   "image_file": "gt_004.jpg",
   "ground_truth": {
-    "name": "Michael Zhang",
-    "company": "Global Trading Co., Ltd.",
-    "jobTitle": "Sales Manager",
-    "department": "International Sales",
-    "mobile": "+852 9123-4567",
-    "officePhone": "+852 2123-4567",
-    "fax": "+852 2123-4568",
-    "email": "michael.zhang@global.example.hk",
-    "website": "www.global-trade.example.hk",
-    "address": "Suite 1801, Central Tower, 1 Queen's Road, Hong Kong",
-    "postalCode": null
+    "name": "刘洋",
+    "company": "成都市锦程软件有限公司",
+    "jobTitle": "前端工程师",
+    "department": null,
+    "mobile": "+86 150-5555-1004",
+    "officePhone": null,
+    "fax": null,
+    "email": "liuyang@jincheng.example.cn",
+    "website": null,
+    "address": "成都市高新区天府大道中段666号",
+    "postalCode": "610041"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "officePhone", "fax"],
-  "notes": "核心测试 T10 多电话区分场景"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "无座机、无网址"
 }

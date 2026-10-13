@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_028",
+  "category": "字段缺失",
+  "description": "字段缺失名片 - 无网址/无传真/无部门",
+  "image_file": "gt_028.jpg",
+  "ground_truth": {
+    "name": "徐芳 (Fang Xu)",
+    "company": "广州市白云食品有限公司",
+    "jobTitle": "质检员",
+    "department": null,
+    "mobile": "+86 150-5555-5028",
+    "officePhone": null,
+    "fax": null,
+    "email": "fang.xu@baiyun.example.cn",
+    "website": null,
+    "address": "广州市白云区云城西路55号",
+    "postalCode": "510410"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "website/fax/department 应识别为 null"
+}

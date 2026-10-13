@@ -1,20 +1,26 @@
 {
   "card_id": "gt_010",
-  "description": "极简名片 - 只有姓名、电话、邮箱",
+  "category": "英文名片",
+  "description": "英文名片 - 标准正平面片",
   "image_file": "gt_010.jpg",
   "ground_truth": {
-    "name": "周小明",
-    "company": null,
-    "jobTitle": null,
-    "department": null,
-    "mobile": "+86 137-0000-0010",
-    "officePhone": null,
+    "name": "Emily Johnson",
+    "company": "Blue Ocean Labs LLC",
+    "jobTitle": "Product Manager",
+    "department": "Product",
+    "mobile": "+1-555-223-7890",
+    "officePhone": "+1-555-223-7800",
     "fax": null,
-    "email": "zhouxm@example.com",
-    "website": null,
-    "address": null,
-    "postalCode": null
+    "email": "emily.johnson@example.com",
+    "website": "www.blueoceanlabs.com",
+    "address": "456 Harbor Blvd, San Francisco, CA 94107",
+    "postalCode": "94107"
   },
-  "required_accuracy_fields": ["name", "mobile", "email"],
-  "notes": "超简名片，company/website/address 全为 null，测试 T9 边界"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "含office线"
 }

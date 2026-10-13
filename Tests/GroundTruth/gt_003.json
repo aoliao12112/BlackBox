@@ -1,20 +1,26 @@
 {
   "card_id": "gt_003",
-  "description": "中英双语名片 - 正反两面",
+  "category": "中文名片",
+  "description": "中文名片 - 标准正平面片",
   "image_file": "gt_003.jpg",
   "ground_truth": {
-    "name": "李华 (Lisa Li)",
-    "company": "Tongji University / 同济大学",
-    "jobTitle": "Professor / 教授",
-    "department": "School of Computer Science / 计算机学院",
-    "mobile": "+86 139-0000-0002",
-    "officePhone": "+86 21-5555-0002",
+    "name": "张伟",
+    "company": "深圳华宇电子股份有限公司",
+    "jobTitle": "硬件工程师",
+    "department": "研发中心",
+    "mobile": "+86 137-0000-1003",
+    "officePhone": "+86 755-5555-3300",
     "fax": null,
-    "email": "lisa.li@tongji.example.cn",
-    "website": "cs.tongji.example.cn/~lisa",
-    "address": "上海市杨浦区四平路 1239 号",
-    "postalCode": "200092"
+    "email": "zhangwei@huayu.example.cn",
+    "website": "www.huayu.example.cn",
+    "address": "深圳市南山区科技园南区A座8楼",
+    "postalCode": "518057"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "中英双语混排，OCR 语言检测难度较高"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "标准中文版式"
 }

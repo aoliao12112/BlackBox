@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_020",
+  "category": "中英双语",
+  "description": "中英双语名片 - 标准正平面片",
+  "image_file": "gt_020.jpg",
+  "ground_truth": {
+    "name": "郑雪 (Sherry Zheng)",
+    "company": "厦门花语文创设计工作室 / Flora Studio",
+    "jobTitle": "视觉设计师 / Visual Designer",
+    "department": "设计部",
+    "mobile": "+86 132-5555-2020",
+    "officePhone": null,
+    "fax": null,
+    "email": "sherry.zheng@flora.example.cn",
+    "website": null,
+    "address": "厦门市思明区曾厝垵120号",
+    "postalCode": "361005"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "无网址"
+}

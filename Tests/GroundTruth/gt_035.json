@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_035",
+  "category": "复杂Logo/背景",
+  "description": "复杂背景名片",
+  "image_file": "gt_035.jpg",
+  "ground_truth": {
+    "name": "蒋平 (Peter Jiang)",
+    "company": "深圳前海湾投资咨询有限公司",
+    "jobTitle": "投资顾问",
+    "department": "投资部",
+    "mobile": "+86 136-5555-7035",
+    "officePhone": "+86 755-5555-4400",
+    "fax": "+86 755-5555-4401",
+    "email": "peter.jiang@qianhaiwan.example.cn",
+    "website": "www.qianhaiwan.example.cn",
+    "address": "深圳市南山区前海深港合作区前湾一路1号",
+    "postalCode": "518052"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "深色底纹背景，文字与背景对比低"
+}

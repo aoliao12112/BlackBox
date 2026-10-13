@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_032",
+  "category": "拍摄质量较差",
+  "description": "拍摄质量差名片 - 低光环境",
+  "image_file": "gt_032.jpg",
+  "ground_truth": {
+    "name": "苏珊 (Susan Su)",
+    "company": "南京玄武信息技术有限公司",
+    "jobTitle": "人事专员",
+    "department": "人力资源部",
+    "mobile": "+86 151-5555-6032",
+    "officePhone": "+86 25-5555-2200",
+    "fax": null,
+    "email": "susan.su@xuanwu.example.cn",
+    "website": "www.xuanwu.example.cn",
+    "address": "南京市玄武区珠江路333号",
+    "postalCode": "210018"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "低光照条件拍摄"
+}

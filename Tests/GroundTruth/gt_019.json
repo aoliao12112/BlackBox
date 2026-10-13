@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_019",
+  "category": "中英双语",
+  "description": "中英双语名片 - 标准正平面片",
+  "image_file": "gt_019.jpg",
+  "ground_truth": {
+    "name": "吴强 (Kevin Wu)",
+    "company": "青岛海蓝食品贸易公司 / BlueSea Trading",
+    "jobTitle": "采购专员 / Procurement",
+    "department": null,
+    "mobile": "+86 155-5555-2019",
+    "officePhone": "+86 532-5555-3300",
+    "fax": "+86 532-5555-3301",
+    "email": "kevin.wu@bluesea.example.cn",
+    "website": "www.bluesea.example.cn",
+    "address": "青岛市市南区香港中路9号",
+    "postalCode": "266071"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "中英混排，含传真"
+}

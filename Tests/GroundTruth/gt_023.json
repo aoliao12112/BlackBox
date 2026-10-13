@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_023",
+  "category": "竖版/特殊布局",
+  "description": "竖版名片 - 特殊布局",
+  "image_file": "gt_023.jpg",
+  "ground_truth": {
+    "name": "何勇 (Henry He)",
+    "company": "贵阳大数据产业发展有限公司",
+    "jobTitle": "数据分析师",
+    "department": "数据部",
+    "mobile": "+86 159-5555-3023",
+    "officePhone": "+86 851-5555-5500",
+    "fax": null,
+    "email": "henry.he@guidata.example.cn",
+    "website": "www.guidata.example.cn",
+    "address": "贵阳市观山湖区金阳南路68号",
+    "postalCode": "550081"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "竖版排版"
+}

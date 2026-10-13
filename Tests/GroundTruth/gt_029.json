@@ -1,0 +1,25 @@
+{
+  "card_id": "gt_029",
+  "category": "字段缺失",
+  "description": "字段缺失名片 - 无邮件/无地址",
+  "image_file": "gt_029.jpg",
+  "ground_truth": {
+    "name": "胡刚 (Gang Hu)",
+    "company": "西安秦创科技发展有限公司",
+    "jobTitle": "运维工程师",
+    "department": "技术部",
+    "mobile": "+86 186-5555-5029",
+    "officePhone": "+86 29-5555-9900",
+    "fax": null,
+    "email": null,
+    "website": "www.qinchuang.example.cn",
+    "address": null,
+    "postalCode": null
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile"
+  ],
+  "notes": "email/address 应识别为 null"
+}

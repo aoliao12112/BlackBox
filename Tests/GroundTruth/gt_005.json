@@ -1,20 +1,26 @@
 {
   "card_id": "gt_005",
-  "description": "字段缺失 - 故意没有 Website 和 Address",
+  "category": "中文名片",
+  "description": "中文名片 - 标准正平面片",
   "image_file": "gt_005.jpg",
   "ground_truth": {
-    "name": "陈芳",
-    "company": "北京创业工作室",
-    "jobTitle": "创始人 & CEO",
-    "department": null,
-    "mobile": "+86 136-0000-0005",
-    "officePhone": null,
+    "name": "陈静",
+    "company": "杭州远航生物科技有限公司",
+    "jobTitle": "市场总监",
+    "department": "市场部",
+    "mobile": "+86 188-0000-1005",
+    "officePhone": "+86 571-5555-2211",
     "fax": null,
-    "email": "chenfang@startup.example.cn",
-    "website": null,
-    "address": null,
-    "postalCode": null
+    "email": "chenjing@yuanhang.example.cn",
+    "website": "www.yuanhang.example.cn",
+    "address": "杭州市西湖区文三路478号华星时代广场",
+    "postalCode": "310012"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "核心测试 T9 - AI 不得补全 Website/Address 字段"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "标准中文版式"
 }

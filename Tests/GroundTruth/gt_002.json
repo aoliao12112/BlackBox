@@ -1,20 +1,26 @@
 {
   "card_id": "gt_002",
+  "category": "中文名片",
   "description": "中文名片 - 标准正平面片",
   "image_file": "gt_002.jpg",
   "ground_truth": {
-    "name": "王小明",
-    "company": "上海智联科技有限公司",
-    "jobTitle": "研发总监",
-    "department": "人工智能部",
-    "mobile": "+86 138-0000-0001",
-    "officePhone": "+86 21-6666-8888",
-    "fax": null,
-    "email": "wangxm@zhilian.example.cn",
-    "website": "www.zhilian.example.cn",
-    "address": "上海市浦东新区张江高科技园区博云路 2 号",
-    "postalCode": "201203"
+    "name": "李华",
+    "company": "北京云图网络有限公司",
+    "jobTitle": "产品经理",
+    "department": "产品部",
+    "mobile": "+86 139-5555-1002",
+    "officePhone": "+86 10-5555-7788",
+    "fax": "+86 10-5555-7789",
+    "email": "lihua@yuntu.example.cn",
+    "website": "www.yuntu.example.cn",
+    "address": "北京市海淀区中关村大街1号",
+    "postalCode": "100080"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "标准中文版式"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "含座机+传真三条线"
 }

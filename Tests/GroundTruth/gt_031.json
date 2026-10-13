@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_031",
+  "category": "拍摄质量较差",
+  "description": "拍摄质量差名片 - 轻微模糊",
+  "image_file": "gt_031.jpg",
+  "ground_truth": {
+    "name": "梁伟 (Will Liang)",
+    "company": "成都菁蓉软件外包有限公司",
+    "jobTitle": "测试工程师",
+    "department": "质量部",
+    "mobile": "+86 133-5555-6031",
+    "officePhone": null,
+    "fax": null,
+    "email": "will.liang@jingrong.example.cn",
+    "website": "www.jingrong.example.cn",
+    "address": "成都市武侯区天府软件园E区",
+    "postalCode": "610041"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "图片轻微模糊"
+}

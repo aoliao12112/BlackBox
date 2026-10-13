@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_034",
+  "category": "复杂Logo/背景",
+  "description": "复杂Logo背景名片",
+  "image_file": "gt_034.jpg",
+  "ground_truth": {
+    "name": "谢娜 (Nina Xie)",
+    "company": "上海魔都时尚设计有限公司",
+    "jobTitle": "品牌策划",
+    "department": "品牌部",
+    "mobile": "+86 189-5555-7034",
+    "officePhone": "+86 21-5555-3300",
+    "fax": null,
+    "email": "nina.xie@modu.example.cn",
+    "website": "www.modu.example.cn",
+    "address": "上海市黄浦区淮海中路300号",
+    "postalCode": "200021"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "彩色Logo与花纹背景干扰"
+}

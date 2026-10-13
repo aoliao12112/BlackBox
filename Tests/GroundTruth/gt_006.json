@@ -1,20 +1,26 @@
 {
   "card_id": "gt_006",
-  "description": "竖版名片 - 非标准布局",
+  "category": "中文名片",
+  "description": "中文名片 - 标准正平面片",
   "image_file": "gt_006.jpg",
   "ground_truth": {
-    "name": "小林太郎",
-    "company": "Tokyo Design Studio",
-    "jobTitle": "Creative Director",
-    "department": null,
-    "mobile": "+81 90-1234-5678",
+    "name": "杨帆",
+    "company": "武汉光谷信息技术有限公司",
+    "jobTitle": "数据工程师",
+    "department": "数据平台部",
+    "mobile": "+86 133-5555-1006",
     "officePhone": null,
     "fax": null,
-    "email": "taro@tokyodesign.example.jp",
-    "website": "www.tokyodesign.example.jp",
-    "address": "1-1-1 Shibuya, Shibuya-ku, Tokyo 150-0002, Japan",
-    "postalCode": null
+    "email": "yangfan@guanggu.example.cn",
+    "website": "www.guanggu.example.cn",
+    "address": "武汉市洪山区光谷大道77号",
+    "postalCode": "430074"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "竖版布局，文字方向可能需要旋转检测"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "无座机"
 }

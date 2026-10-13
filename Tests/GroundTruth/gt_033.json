@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_033",
+  "category": "拍摄质量较差",
+  "description": "拍摄质量差名片 - 有阴影",
+  "image_file": "gt_033.jpg",
+  "ground_truth": {
+    "name": "罗杰 (Roger Luo)",
+    "company": "广州南沙物流有限公司",
+    "jobTitle": "仓库主管",
+    "department": "仓储部",
+    "mobile": "+86 182-5555-6033",
+    "officePhone": null,
+    "fax": null,
+    "email": "roger.luo@nansha.example.cn",
+    "website": null,
+    "address": "广州市南沙区港前大道北10号",
+    "postalCode": "511455"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "画面局部有阴影遮挡"
+}

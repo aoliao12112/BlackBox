@@ -1,20 +1,26 @@
 {
   "card_id": "gt_015",
-  "description": "测试样例 15",
+  "category": "英文名片",
+  "description": "英文名片 - 标准正平面片",
   "image_file": "gt_015.jpg",
   "ground_truth": {
-    "name": "Test Name 15",
-    "company": "Test Company 15",
-    "jobTitle": "Test Title",
-    "department": null,
-    "mobile": "+86 138-15151515-0000",
-    "officePhone": null,
-    "fax": null,
-    "email": "test15@example.com",
-    "website": "www.test15.example.com",
-    "address": "Test Address 15",
-    "postalCode": null
+    "name": "Robert Brown",
+    "company": "Green Valley Foods Co.",
+    "jobTitle": "Operations Manager",
+    "department": "Operations",
+    "mobile": "+1-555-787-9900",
+    "officePhone": "+1-555-787-9901",
+    "fax": "+1-555-787-9902",
+    "email": "robert.brown@example.com",
+    "website": "www.greenvalleyfoods.com",
+    "address": "22 Orchard Lane, Denver, CO 80202",
+    "postalCode": "80202"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "Test placeholder 15"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "含fax"
 }

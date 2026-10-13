@@ -1,20 +1,26 @@
 {
   "card_id": "gt_001",
-  "description": "英文名片 - 标准正平面片，单一联系方式",
+  "category": "中文名片",
+  "description": "中文名片 - 标准正平面片",
   "image_file": "gt_001.jpg",
   "ground_truth": {
-    "name": "David Chen",
-    "company": "ABC Technologies Inc.",
-    "jobTitle": "Technical Director",
-    "department": "Software Engineering",
-    "mobile": "+1-555-123-4567",
-    "officePhone": null,
+    "name": "王小明",
+    "company": "上海智联科技有限公司",
+    "jobTitle": "研发总监",
+    "department": "人工智能部",
+    "mobile": "+86 138-0000-0001",
+    "officePhone": "+86 21-6666-8888",
     "fax": null,
-    "email": "david.chen@example.com",
-    "website": "www.abc-tech.com",
-    "address": "123 Tech Street, Silicon Valley, CA 94000",
-    "postalCode": null
+    "email": "wangxm@zhilian.example.cn",
+    "website": "www.zhilian.example.cn",
+    "address": "上海市浦东新区张江高科技园区博云路2号",
+    "postalCode": "201203"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "标准英文版式，无额外干扰"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "标准中文版式"
 }

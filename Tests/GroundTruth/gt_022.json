@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_022",
+  "category": "竖版/特殊布局",
+  "description": "竖版名片 - 特殊布局",
+  "image_file": "gt_022.jpg",
+  "ground_truth": {
+    "name": "陈丽 (Lily Chen)",
+    "company": "昆明滇池文旅发展有限公司",
+    "jobTitle": "运营总监",
+    "department": "运营部",
+    "mobile": "+86 136-5555-3022",
+    "officePhone": null,
+    "fax": null,
+    "email": "lily.chen@dianchi.example.cn",
+    "website": null,
+    "address": "昆明市西山区滇池路668号",
+    "postalCode": "650228"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "竖版排版，文字纵向"
+}

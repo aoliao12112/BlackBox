@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_018",
+  "category": "中英双语",
+  "description": "中英双语名片 - 标准正平面片",
+  "image_file": "gt_018.jpg",
+  "ground_truth": {
+    "name": "周敏 (Mia Zhou)",
+    "company": "南京睿联信息科技有限公司 / Ruilian InfoTech",
+    "jobTitle": "运营经理 / Operations Manager",
+    "department": "运营部",
+    "mobile": "+86 187-5555-2018",
+    "officePhone": null,
+    "fax": null,
+    "email": "mia.zhou@ruilian.example.cn",
+    "website": "www.ruilian.example.cn",
+    "address": "南京市鼓楼区中山北路26号",
+    "postalCode": "210008"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "中英混排"
+}

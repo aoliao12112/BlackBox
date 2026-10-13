@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_024",
+  "category": "竖版/特殊布局",
+  "description": "特殊布局名片 - 圆形Logo居中",
+  "image_file": "gt_024.jpg",
+  "ground_truth": {
+    "name": "高翔 (Sean Gao)",
+    "company": "天津滨海创新孵化器有限公司",
+    "jobTitle": "创业导师",
+    "department": null,
+    "mobile": "+86 138-5555-3024",
+    "officePhone": null,
+    "fax": null,
+    "email": "sean.gao@binhai.example.cn",
+    "website": "www.binhai.example.cn",
+    "address": "天津市滨海新区第二大街22号",
+    "postalCode": "300457"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "非标准网格布局"
+}

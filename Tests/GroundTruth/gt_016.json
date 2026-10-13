@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_016",
+  "category": "英文名片",
+  "description": "英文名片 - 标准正平面片",
+  "image_file": "gt_016.jpg",
+  "ground_truth": {
+    "name": "Anna Liu",
+    "company": "Cloud Nine Software Ltd.",
+    "jobTitle": "QA Engineer",
+    "department": "Quality",
+    "mobile": "+1-555-898-0011",
+    "officePhone": null,
+    "fax": null,
+    "email": "anna.liu@example.com",
+    "website": "www.cloudninesw.com",
+    "address": "88 Lakeview Ave, Seattle, WA 98101",
+    "postalCode": "98101"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "标准英文版式"
+}

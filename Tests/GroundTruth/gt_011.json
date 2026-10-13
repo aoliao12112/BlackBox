@@ -1,20 +1,26 @@
 {
   "card_id": "gt_011",
-  "description": "测试样例 11",
+  "category": "英文名片",
+  "description": "英文名片 - 标准正平面片",
   "image_file": "gt_011.jpg",
   "ground_truth": {
-    "name": "Test Name 11",
-    "company": "Test Company 11",
-    "jobTitle": "Test Title",
-    "department": null,
-    "mobile": "+86 138-11111111-0000",
-    "officePhone": null,
-    "fax": null,
-    "email": "test11@example.com",
-    "website": "www.test11.example.com",
-    "address": "Test Address 11",
-    "postalCode": null
+    "name": "Michael Lee",
+    "company": "Nova Systems Corp.",
+    "jobTitle": "Staff Engineer",
+    "department": "Platform",
+    "mobile": "+1-555-333-1122",
+    "officePhone": "+1-555-333-1100",
+    "fax": "+1-555-333-1199",
+    "email": "michael.lee@example.com",
+    "website": "www.novasystems.com",
+    "address": "789 Innovation Dr, Austin, TX 78701",
+    "postalCode": "78701"
   },
-  "required_accuracy_fields": ["name", "company", "mobile", "email"],
-  "notes": "Test placeholder 11"
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "含fax"
 }

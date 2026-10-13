@@ -1,0 +1,26 @@
+{
+  "card_id": "gt_017",
+  "category": "中英双语",
+  "description": "中英双语名片 - 标准正平面片",
+  "image_file": "gt_017.jpg",
+  "ground_truth": {
+    "name": "王安 (Alan Wang)",
+    "company": "苏州明曜光电科技有限公司 / Mingyao Optoelectronics",
+    "jobTitle": "销售总监 / Sales Director",
+    "department": "销售部",
+    "mobile": "+86 130-5555-2017",
+    "officePhone": "+86 512-5555-2211",
+    "fax": null,
+    "email": "alan.wang@mingyao.example.cn",
+    "website": "www.mingyao.example.cn",
+    "address": "苏州市工业园区星湖街328号",
+    "postalCode": "215123"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "email"
+  ],
+  "notes": "中英混排"
+}

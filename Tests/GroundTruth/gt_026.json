@@ -1,0 +1,28 @@
+{
+  "card_id": "gt_026",
+  "category": "多电话/多Email",
+  "description": "多电话名片 - Mobile + Office + Fax",
+  "image_file": "gt_026.jpg",
+  "ground_truth": {
+    "name": "马丽 (Mary Ma)",
+    "company": "北京华信国际会展中心",
+    "jobTitle": "会展策划",
+    "department": "策划部",
+    "mobile": "+86 139-5555-4026",
+    "officePhone": "+86 10-5555-7700",
+    "fax": "+86 10-5555-7701",
+    "email": "mary.ma@huaxin.example.cn",
+    "website": "www.huaxin.example.cn",
+    "address": "北京市朝阳区东三环北路8号",
+    "postalCode": "100027"
+  },
+  "required_accuracy_fields": [
+    "name",
+    "company",
+    "mobile",
+    "officePhone",
+    "fax",
+    "email"
+  ],
+  "notes": "三条电话线齐全"
+}
