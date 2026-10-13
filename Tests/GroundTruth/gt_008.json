@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_008",
+  "description": "学术名片 - 包含 Research Group 和 Lab",
+  "image_file": "gt_008.jpg",
+  "ground_truth": {
+    "name": "Dr. Andreas Müller",
+    "company": "ETH Zurich",
+    "jobTitle": "Senior Researcher",
+    "department": "Computer Vision Lab",
+    "mobile": null,
+    "officePhone": "+41 44-632-1234",
+    "fax": null,
+    "email": "andreas.mueller@inf.ethz.ch",
+    "website": "www.vision.ethz.ch/amueller",
+    "address": "Universitätsstraße 6, 8092 Zürich, Switzerland",
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "company", "officePhone", "email"],
+  "notes": "学术机构名片，公司字段应识别为 ETH Zurich 而非 CV Lab"
+}

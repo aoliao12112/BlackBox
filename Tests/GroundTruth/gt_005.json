@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_005",
+  "description": "字段缺失 - 故意没有 Website 和 Address",
+  "image_file": "gt_005.jpg",
+  "ground_truth": {
+    "name": "陈芳",
+    "company": "北京创业工作室",
+    "jobTitle": "创始人 & CEO",
+    "department": null,
+    "mobile": "+86 136-0000-0005",
+    "officePhone": null,
+    "fax": null,
+    "email": "chenfang@startup.example.cn",
+    "website": null,
+    "address": null,
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "company", "mobile", "email"],
+  "notes": "核心测试 T9 - AI 不得补全 Website/Address 字段"
+}

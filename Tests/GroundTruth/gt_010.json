@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_010",
+  "description": "极简名片 - 只有姓名、电话、邮箱",
+  "image_file": "gt_010.jpg",
+  "ground_truth": {
+    "name": "周小明",
+    "company": null,
+    "jobTitle": null,
+    "department": null,
+    "mobile": "+86 137-0000-0010",
+    "officePhone": null,
+    "fax": null,
+    "email": "zhouxm@example.com",
+    "website": null,
+    "address": null,
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "mobile", "email"],
+  "notes": "超简名片，company/website/address 全为 null，测试 T9 边界"
+}

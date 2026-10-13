@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_013",
+  "description": "测试样例 13",
+  "image_file": "gt_013.jpg",
+  "ground_truth": {
+    "name": "Test Name 13",
+    "company": "Test Company 13",
+    "jobTitle": "Test Title",
+    "department": null,
+    "mobile": "+86 138-13131313-0000",
+    "officePhone": null,
+    "fax": null,
+    "email": "test13@example.com",
+    "website": "www.test13.example.com",
+    "address": "Test Address 13",
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "company", "mobile", "email"],
+  "notes": "Test placeholder 13"
+}

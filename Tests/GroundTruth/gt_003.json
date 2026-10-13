@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_003",
+  "description": "中英双语名片 - 正反两面",
+  "image_file": "gt_003.jpg",
+  "ground_truth": {
+    "name": "李华 (Lisa Li)",
+    "company": "Tongji University / 同济大学",
+    "jobTitle": "Professor / 教授",
+    "department": "School of Computer Science / 计算机学院",
+    "mobile": "+86 139-0000-0002",
+    "officePhone": "+86 21-5555-0002",
+    "fax": null,
+    "email": "lisa.li@tongji.example.cn",
+    "website": "cs.tongji.example.cn/~lisa",
+    "address": "上海市杨浦区四平路 1239 号",
+    "postalCode": "200092"
+  },
+  "required_accuracy_fields": ["name", "company", "mobile", "email"],
+  "notes": "中英双语混排，OCR 语言检测难度较高"
+}

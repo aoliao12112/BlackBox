@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_009",
+  "description": "斜向拍摄测试 - 带阴影和倾斜",
+  "image_file": "gt_009.jpg",
+  "ground_truth": {
+    "name": "张小龙",
+    "company": "深圳微创新科技",
+    "jobTitle": "产品经理",
+    "department": "移动产品组",
+    "mobile": "+86 135-0000-0009",
+    "officePhone": null,
+    "fax": null,
+    "email": "zhangxl@weixin.example.cn",
+    "website": null,
+    "address": "深圳市南山区科技园南区",
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "company", "mobile", "email"],
+  "notes": "拍摄场景有倾斜和投影，测试边界检测 + 校正能力（T06）"
+}

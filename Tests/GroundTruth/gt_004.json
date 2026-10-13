@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_004",
+  "description": "多电话名片 - Mobile + Office + Fax 三条线",
+  "image_file": "gt_004.jpg",
+  "ground_truth": {
+    "name": "Michael Zhang",
+    "company": "Global Trading Co., Ltd.",
+    "jobTitle": "Sales Manager",
+    "department": "International Sales",
+    "mobile": "+852 9123-4567",
+    "officePhone": "+852 2123-4567",
+    "fax": "+852 2123-4568",
+    "email": "michael.zhang@global.example.hk",
+    "website": "www.global-trade.example.hk",
+    "address": "Suite 1801, Central Tower, 1 Queen's Road, Hong Kong",
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "company", "mobile", "officePhone", "fax"],
+  "notes": "核心测试 T10 多电话区分场景"
+}

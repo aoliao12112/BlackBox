@@ -1,0 +1,20 @@
+{
+  "card_id": "gt_001",
+  "description": "英文名片 - 标准正平面片，单一联系方式",
+  "image_file": "gt_001.jpg",
+  "ground_truth": {
+    "name": "David Chen",
+    "company": "ABC Technologies Inc.",
+    "jobTitle": "Technical Director",
+    "department": "Software Engineering",
+    "mobile": "+1-555-123-4567",
+    "officePhone": null,
+    "fax": null,
+    "email": "david.chen@example.com",
+    "website": "www.abc-tech.com",
+    "address": "123 Tech Street, Silicon Valley, CA 94000",
+    "postalCode": null
+  },
+  "required_accuracy_fields": ["name", "company", "mobile", "email"],
+  "notes": "标准英文版式，无额外干扰"
+}
