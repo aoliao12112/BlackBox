@@ -2,9 +2,7 @@
 //  HomeView.swift
 //  blackbox
 //
-//  Created by admin on 2026/10/13.
-//
-//  Week 1 骨架 — Week 2 实现完整 UI
+//  Week 2 · 名片夹首页（可导航版本）
 //  Spec: spec.md §1 P1 名片夹首页
 //
 
@@ -12,48 +10,59 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @EnvironmentObject private var router: Router
     @StateObject private var viewModel = HomeViewModel()
+    @State private var cardToDelete: BusinessCard?
     
     var body: some View {
-        NavigationStack {
-            Group {
-                if viewModel.cards.isEmpty {
-                    // T01 空状态
-                    EmptyStateView(onScan: startScanning)
-                } else {
-                    // 名片列表
-                    List {
-                        ForEach(viewModel.cards) { card in
-                            CardRowView(card: card)
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    // Week 2 TODO: 跳转到 CardDetailView
-                                }
-                        }
-                        .onDelete { indexSet in
-                            // Week 2 TODO: 删除确认弹窗 + 调用 viewModel.deleteCard
+        Group {
+            if viewModel.cards.isEmpty {
+                EmptyStateView(onScan: { router.navigate(to: .scanner) })
+            } else {
+                List {
+                    ForEach(viewModel.cards) { card in
+                        CardRowView(card: card)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                router.navigate(to: .cardDetail(cardID: card.id))
+                            }
+                    }
+                    .onDelete { indexSet in
+                        if let index = indexSet.first {
+                            cardToDelete = viewModel.cards[index]
                         }
                     }
-                    .listStyle(.plain)
                 }
+                .listStyle(.plain)
             }
-            .navigationTitle("名片夹")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: startScanning) {
-                        Image(systemName: "camera.viewfinder")
-                    }
+        }
+        .navigationTitle("名片夹")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: { router.navigate(to: .scanner) }) {
+                    Image(systemName: "camera.viewfinder")
                 }
             }
         }
-        .task {
-            await viewModel.loadCards()
-        }
-    }
-    
-    private func startScanning() {
-        // Week 2 TODO: Navigate to ScannerView
-        // 当前仅做占位
+        .confirmationDialog(
+            "删除这张名片？",
+            isPresented: .init(
+                get: { cardToDelete != nil },
+                set: { if !$0 { cardToDelete = nil } }
+            ),
+            titleVisibility: .visible,
+            role: .destructive,
+            actions: {
+                Button("删除", role: .destructive) {
+                    if let card = cardToDelete {
+                        Task { await viewModel.deleteCard(id: card.id) }
+                    }
+                    cardToDelete = nil
+                }
+                Button("取消", role: .cancel) { cardToDelete = nil }
+            }
+        )
+        .task { await viewModel.loadCards() }
     }
 }
 
@@ -70,7 +79,6 @@ private struct EmptyStateView: View {
             
             Text("还没有名片")
                 .font(.title2)
-                .foregroundStyle(.primary)
             
             Text("扫描一张名片，开始建立你的名片夹")
                 .font(.subheadline)
@@ -82,7 +90,7 @@ private struct EmptyStateView: View {
                     .frame(minWidth: 140)
                     .padding()
                     .background(Color.accentColor)
-                    .foregroundStyle(.white)
+                    .foregroundColor(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             .buttonStyle(.plain)
@@ -98,13 +106,12 @@ private struct CardRowView: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // 头像/首字母
             ZStack {
                 Circle()
                     .fill(Color.accentColor.opacity(0.2))
                 Text(String(card.name?.prefix(1) ?? "?"))
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundStyle(.accentColor)
+                    .foregroundColor(Color.accentColor)
             }
             .frame(width: 48, height: 48)
             
@@ -132,5 +139,8 @@ private struct CardRowView: View {
 }
 
 #Preview {
-    HomeView()
+    NavigationStack {
+        HomeView()
+    }
+    .environmentObject(Router())
 }
