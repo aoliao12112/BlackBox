@@ -58,6 +58,7 @@ jobs:
             -scheme blackbox \
             -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
             -derivedDataPath DerivedData \
+            -parallel-testing-enabled NO \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Boot simulator and grant privacy permissions
@@ -77,6 +78,7 @@ jobs:
             -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
             -derivedDataPath DerivedData \
             -resultBundlePath TestResults.xcresult \
+            -parallel-testing-enabled NO \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Seed demo cards and capture simulator screenshots
