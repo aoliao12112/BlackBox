@@ -120,65 +120,18 @@ struct ExportView: View {
 
     /// 保存到系统通讯录（T19），需要用户授权
     private func saveToContacts() {
-        let trim = { (s: String?) -> String? in
-            s?.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-
-        let contact = CNMutableContact()
-        if let name = trim(card.name), !name.isEmpty {
-            contact.givenName = name
-        }
-        if let org = trim(card.company) { contact.organizationName = org }
-        if let title = trim(card.jobTitle) { contact.jobTitle = title }
-
-        var phones: [CNLabeledValue<CNPhoneNumber>] = []
-        if let m = trim(card.mobile), !m.isEmpty {
-            phones.append(.init(label: CNLabelPhoneNumberMobile, value: CNPhoneNumber(stringValue: m)))
-        }
-        if let o = trim(card.officePhone), !o.isEmpty {
-            phones.append(.init(label: CNLabelPhoneNumberMain, value: CNPhoneNumber(stringValue: o)))
-        }
-        if let f = trim(card.fax), !f.isEmpty {
-            phones.append(.init(label: CNLabelPhoneNumberOtherFax, value: CNPhoneNumber(stringValue: f)))
-        }
-        contact.phoneNumbers = phones
-
-        var emails: [CNLabeledValue<NSString>] = []
-        if let e = trim(card.email), !e.isEmpty {
-            emails.append(.init(label: CNLabelWork, value: e as NSString))
-        }
-        for email in card.additionalEmails ?? [] {
-            if let e = trim(email), !e.isEmpty {
-                emails.append(.init(label: CNLabelWork, value: e as NSString))
-            }
-        }
-        contact.emailAddresses = emails
-
-        if let web = trim(card.website), !web.isEmpty {
-            contact.urlAddresses = [.init(label: CNLabelWork, value: web as NSString)]
-        }
-        if let address = trim(card.address), !address.isEmpty {
-            let postal = CNMutablePostalAddress()
-            postal.street = address
-            if let code = trim(card.postalCode) { postal.postalCode = code }
-            contact.postalAddresses = [.init(label: CNLabelWork, value: postal)]
-        }
-
-        if let note = trim(card.notes) { contact.note = note }
-
+        let contact = ContactBuilder.build(from: card)
         let store = CNContactStore()
-        store.requestAccess(for: .contacts) { granted, _ in
-            guard granted else {
-                DispatchQueue.main.async { saveMessage = "未获得通讯录权限，请在设置中开启" }
-                return
-            }
-            let request = CNSaveRequest()
-            request.add(contact, toContainerWithIdentifier: nil)
+        Task {
             do {
-                try store.execute(request)
-                DispatchQueue.main.async { saveMessage = "已保存到系统通讯录" }
+                guard try await ContactStoreService.requestAccess(using: store) else {
+                    saveMessage = "未获得通讯录权限，请在设置中开启"
+                    return
+                }
+                try ContactStoreService.save(contact, using: store)
+                saveMessage = "已保存到系统通讯录"
             } catch {
-                DispatchQueue.main.async { saveMessage = "保存失败：\(error.localizedDescription)" }
+                saveMessage = "保存失败：\(error.localizedDescription)"
             }
         }
     }

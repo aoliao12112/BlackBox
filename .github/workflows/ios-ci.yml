@@ -51,14 +51,56 @@ jobs:
           )
           echo "SIMULATOR_UDID=$UDID" >> "$GITHUB_ENV"
 
-      - name: Build and run XCTest
+      - name: Build tests
         run: |
-          xcodebuild test \
+          xcodebuild build-for-testing \
             -project blackbox.xcodeproj \
             -scheme blackbox \
             -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
+            -derivedDataPath DerivedData \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Boot simulator and grant privacy permissions
+        run: |
+          xcrun simctl boot "$SIMULATOR_UDID" 2>/dev/null || true
+          xcrun simctl bootstatus "$SIMULATOR_UDID" -b
+          xcrun simctl install "$SIMULATOR_UDID" DerivedData/Build/Products/Debug-iphonesimulator/blackbox.app
+          xcrun simctl privacy "$SIMULATOR_UDID" grant camera none.blackbox
+          xcrun simctl privacy "$SIMULATOR_UDID" grant contacts none.blackbox
+          xcrun simctl privacy "$SIMULATOR_UDID" grant photos none.blackbox
+
+      - name: Run XCTest
+        run: |
+          xcodebuild test-without-building \
+            -project blackbox.xcodeproj \
+            -scheme blackbox \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
+            -derivedDataPath DerivedData \
             -resultBundlePath TestResults.xcresult \
             CODE_SIGNING_ALLOWED=NO
+
+      - name: Seed demo cards and capture simulator screenshots
+        run: |
+          APP_DATA=$(xcrun simctl get_app_container "$SIMULATOR_UDID" none.blackbox data)
+          SEED_OUTPUT=$(python3 Scripts/seed_simulator_data.py "$APP_DATA/Documents/business_cards")
+          echo "$SEED_OUTPUT"
+          DETAIL_CARD_ID=$(echo "$SEED_OUTPUT" | sed -n 's/^DETAIL_CARD_ID=//p')
+          mkdir -p SimulatorScreenshots
+
+          xcrun simctl terminate "$SIMULATOR_UDID" none.blackbox 2>/dev/null || true
+          xcrun simctl launch "$SIMULATOR_UDID" none.blackbox
+          sleep 5
+          xcrun simctl io "$SIMULATOR_UDID" screenshot SimulatorScreenshots/01-home-with-seeded-cards.png
+
+          xcrun simctl terminate "$SIMULATOR_UDID" none.blackbox
+          xcrun simctl launch "$SIMULATOR_UDID" none.blackbox --screenshot-card-id "$DETAIL_CARD_ID"
+          sleep 5
+          xcrun simctl io "$SIMULATOR_UDID" screenshot SimulatorScreenshots/02-card-detail-with-images.png
+
+          xcrun simctl terminate "$SIMULATOR_UDID" none.blackbox
+          xcrun simctl launch "$SIMULATOR_UDID" none.blackbox --screenshot-scanner
+          sleep 5
+          xcrun simctl io "$SIMULATOR_UDID" screenshot SimulatorScreenshots/03-scanner-authorized.png
 
       - name: Upload XCTest result bundle
         if: always()
@@ -67,3 +109,11 @@ jobs:
           name: XCTest-results
           path: TestResults.xcresult
           if-no-files-found: ignore
+
+      - name: Upload simulator screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Simulator-screenshots
+          path: SimulatorScreenshots
+          if-no-files-found: error

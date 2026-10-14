@@ -25,6 +25,10 @@ enum Route: Hashable {
 /// NavigationStack 路径管理
 final class Router: ObservableObject {
     @Published var path = NavigationPath()
+
+    init(initialRoute: Route? = nil) {
+        if let initialRoute { path.append(initialRoute) }
+    }
     
     func navigate(to route: Route) {
         path.append(route)

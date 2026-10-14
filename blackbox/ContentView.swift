@@ -9,7 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var router = Router()
+    @StateObject private var router: Router
+
+    init() {
+        let arguments = ProcessInfo.processInfo.arguments
+        var initialRoute: Route?
+        if arguments.contains("--screenshot-scanner") {
+            initialRoute = .scanner
+        } else if let flag = arguments.firstIndex(of: "--screenshot-card-id"),
+                  arguments.indices.contains(flag + 1),
+                  let id = UUID(uuidString: arguments[flag + 1]) {
+            initialRoute = .cardDetail(cardID: id)
+        }
+        _router = StateObject(wrappedValue: Router(initialRoute: initialRoute))
+    }
     
     var body: some View {
         NavigationStack(path: $router.path) {
