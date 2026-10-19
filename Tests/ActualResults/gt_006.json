@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "武汉市洪山区光谷大道77号",
+    "company" : "武汉光谷信息技术有限公司",
+    "email" : "yangfan@guanggu.example.cn",
+    "fax" : null,
+    "jobTitle" : "数据工程师",
+    "mobile" : "+86 133-5555-1006",
+    "name" : "杨帆",
+    "officePhone" : null,
+    "website" : "www.guanggu.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "杨帆\nCompany： 武汉光谷信息技术有限公司\nTitle： 数据工程师\nDept： 数据平台部\nMobile： +86 133-5555-1006\nEmail: yangfan@guanggu.example.cn\nWeb: www.guanggu.example.cn\nAddr：武汉市洪山区光谷大道77号\nZIP: 430074\ngt_006\nBB",
+    "textBlockCount" : 11,
+    "usedBoundaryRectification" : true
+  }
+}

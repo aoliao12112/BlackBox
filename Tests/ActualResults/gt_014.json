@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "55 Beacon St, Boston, MA 02108",
+    "company" : "Bright Horizon Consulting",
+    "email" : "linda.zhang@example.com",
+    "fax" : null,
+    "jobTitle" : "Consultant",
+    "mobile" : "+1-555-676-8899",
+    "name" : "Linda Zhang",
+    "officePhone" : null,
+    "website" : null
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "Linda Zhang\nCompany: Bright Horizon Consulting\nTitle: Consultant\nMobile： +1-555-676-8899\nEmail:linda.zhang@example.com\nAddr: 55 Beacon St, Boston, MA 02108\nZIP: 02108\ngt_014\nBB",
+    "textBlockCount" : 9,
+    "usedBoundaryRectification" : true
+  }
+}

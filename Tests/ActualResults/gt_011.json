@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "789 Innovation Dr, Austin, TX 78701",
+    "company" : "Nova Systems Corp.",
+    "email" : "michael.lee@example.com",
+    "fax" : "+1-555-333-1199",
+    "jobTitle" : "Staff Engineer",
+    "mobile" : "+1-555-333-1122",
+    "name" : "Michael Lee",
+    "officePhone" : "+1-555-333-1100",
+    "website" : "www.novasystems.com"
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "Michael Lee\nCompany: Nova Systems Corp.\nTitle: Staff Engineer\nDept: Platform\nMobile： +1-555-333-1122\nTel： +1-555-333-1100\nFax： +1-555-333-1199\nEmail: michael.lee@example.com\nWeb: www.novasystems.com\nAddr: 789 Innovation Dr, Austin, TX 78701\nZIP: 78701\ngt_O11\nBB",
+    "textBlockCount" : 13,
+    "usedBoundaryRectification" : true
+  }
+}

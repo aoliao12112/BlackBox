@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "北京市海淀区中关村大街1号",
+    "company" : "北京云图网络有限公司",
+    "email" : "lihua@yuntu.example.cn",
+    "fax" : "+86 10-5555-7789",
+    "jobTitle" : "产品经理",
+    "mobile" : "+86 139-5555-1002",
+    "name" : "李华",
+    "officePhone" : "+86 10-5555-7788",
+    "website" : "www.yuntu.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "李华\nCompany： 北京云图网络有限公司\nTitle：产品经理\nDept： 产品部\nMobile： +86 139-5555-1002\nTel： +86 10-5555-7788\nFax： +86 10-5555-7789\nEmail: lihua@yuntu.example.cn\nWeb:www.yuntu.example.cn\nAddr：北京市海淀区中关村大街1号\nZIP: 100080\ngt_002\nBB",
+    "textBlockCount" : 13,
+    "usedBoundaryRectification" : true
+  }
+}

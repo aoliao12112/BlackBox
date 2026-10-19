@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "杭州市西湖区文三路478号华星时代广场",
+    "company" : "杭州远航生物科技有限公司",
+    "email" : "chenjing@yuanhang.example.cn",
+    "fax" : null,
+    "jobTitle" : "市场总监",
+    "mobile" : "+86 188-0000-1005",
+    "name" : "陈静",
+    "officePhone" : "+86 571-5555-2211",
+    "website" : "www.yuanhang.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "陈静\nCompany：杭州远航生物科技有限公司\nTitle：市场总监\nDept：市场部\nMobile： +86 188-0000-1005\nTel： +86 571-5555-2211\nEmail: chenjing@yuanhang.example.cn\nWeb:www.yuanhang.example.cn\nAddr：杭州市西湖区文三路478号华星时代广场\nZIP: 310012\ngt_005\nBB",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

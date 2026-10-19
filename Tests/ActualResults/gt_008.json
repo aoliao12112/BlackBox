@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "西安市雁塔区高新路25号",
+    "company" : "西安华岳文化传媒有限公司",
+    "email" : "huangmin@huayue.example.cn",
+    "fax" : null,
+    "jobTitle" : "客户经理",
+    "mobile" : "+86 186-5555-1008",
+    "name" : "黃敏",
+    "officePhone" : null,
+    "website" : null
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "黃敏\nCompany： 西安华岳文化传媒有限公司\nTitle： 客户经理\nDept：客户部\nMobile： +86 186-5555-1008\nEmail: huangmin@huayue.example.cn\nAddr：西安市雁塔区高新路25号\nZIP: 710075\ngt_008\nBB",
+    "textBlockCount" : 10,
+    "usedBoundaryRectification" : true
+  }
+}

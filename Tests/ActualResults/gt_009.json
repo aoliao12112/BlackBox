@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "123 Tech Street, Silicon Valley, CA 94000",
+    "company" : "ABC Technologies Inc.",
+    "email" : "david.chen@example.com",
+    "fax" : null,
+    "jobTitle" : "Technical Director",
+    "mobile" : "+1-555-123-4567",
+    "name" : "David Chen",
+    "officePhone" : null,
+    "website" : "www.abc-tech.com"
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "David Chen\nCompany: ABC Technologies Inc.\nTitle: Technical Director\nDept: Software Engineering\nMobile： +1-555-123-4567\nEmail: david.chen@example.com\nWeb:www.abc-tech.com\nAddr: 123 Tech Street, Silicon Valley, CA 94000\ngt_009\nBB",
+    "textBlockCount" : 10,
+    "usedBoundaryRectification" : true
+  }
+}

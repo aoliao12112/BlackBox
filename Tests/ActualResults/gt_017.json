@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "苏州市工业园区星湖街328号",
+    "company" : "苏州明曜光电科技有限公司 \/ Mingyao Optoelectronics",
+    "email" : "alan.wang@mingyao.example.cn",
+    "fax" : null,
+    "jobTitle" : "销售总监 \/ Sales Director",
+    "mobile" : "+86 130-5555-2017",
+    "name" : "王安(Alan Wang)",
+    "officePhone" : "+86 512-5555-2211",
+    "website" : "www.mingyao.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "王安（Alan Wang）\nCompany：苏州明曜光电科技有限公司 \/ Mingyao Optoelectronics\nTitle：销售总监 \/ Sales Director\nDept：销售部\nMobile： +86 130-5555-2017\nTel： +86 512-5555-2211\nEmail: alan.wang@mingyao.example.cn\nWeb:www.mingyao.example.cn\nAddr：苏州市工业园区星湖街328号\nZIP: 215123\nBB\ngt_017",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

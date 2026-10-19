@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "88 Lakeview Ave, Seattle, WA 98101",
+    "company" : "Cloud Nine Software Ltd.",
+    "email" : "anna.liu@example.com",
+    "fax" : null,
+    "jobTitle" : "QA Engineer",
+    "mobile" : "+1-555-898-0011",
+    "name" : "Anna Liu",
+    "officePhone" : null,
+    "website" : "www.cloudninesw.com"
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "Anna Liu\nCompany: Cloud Nine Software Ltd.\nTitle: QA Engineer\nDept: Quality\nMobile： +1-555-898-0011\nEmail:anna.liu@example.com\nWeb: www.cloudninesw.com\nAddr: 88 Lakeview Ave, Seattle, WA 98101\nZIP: 98101\ngt_016\nBB",
+    "textBlockCount" : 11,
+    "usedBoundaryRectification" : true
+  }
+}

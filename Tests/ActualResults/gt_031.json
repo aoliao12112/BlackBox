@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "成都市武侯区天府软件园E区",
+    "company" : "成都菁蓉软件外包有限公司",
+    "email" : "will.liang@jingrong.example.cn",
+    "fax" : null,
+    "jobTitle" : "测试工程师",
+    "mobile" : "+86 133-5555-6031",
+    "name" : "梁伟 (Will Liang)",
+    "officePhone" : null,
+    "website" : "www.jingrong.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "梁伟 （Will Liang）\nCompany： 成都菁蓉软件外包有限公司\nTitle： 测试工程师\nDept： 质量部\nMobile： +86 133-5555-6031\nEmail: will.liang@jingrong.example.cn\nWeb: www.jingrong.example.cn\nAddr：成都市武侯区天府软件园E区\nZIP: 610041\n9t_031\nBB",
+    "textBlockCount" : 11,
+    "usedBoundaryRectification" : true
+  }
+}

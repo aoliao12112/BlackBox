@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : null,
+    "company" : "西安秦创科技发展有限公司",
+    "email" : null,
+    "fax" : null,
+    "jobTitle" : "运维工程师",
+    "mobile" : "+86 186-5555-5029",
+    "name" : "胡刚 (Gang Hu)",
+    "officePhone" : "+86 29-5555-9900",
+    "website" : "www.qinchuang.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "胡刚 （Gang Hu）\nCompany：西安秦创科技发展有限公司\nTitle：运维工程师\nDept：技木部\nMobile： +86 186-5555-5029\nTel： +86 29-5555-9900\nWeb:www.qinchuang.example.cn\ngt_029\nBB",
+    "textBlockCount" : 9,
+    "usedBoundaryRectification" : true
+  }
+}

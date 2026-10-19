@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "22 Orchard Lane, Denver, CO 80202",
+    "company" : "Green Valley Foods Co.",
+    "email" : "robert.brown@example.com",
+    "fax" : "+1-555-787-9902",
+    "jobTitle" : "Operations Manager",
+    "mobile" : "+1-555-787-9900",
+    "name" : "Robert Brown",
+    "officePhone" : "+1-555-787-9901",
+    "website" : "www.greenvalleyfoods.com"
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "Robert Brown\nCompany: Green Valley Foods Co.\nTitle: Operations Manager\nDept: Operations\nMobile： +1-555-787-9900\nTel： +1-555-787-9901\nFax： +1-555-787-9902\nEmail: robert.brown@example.com\nWeb: www.greenvalleyfoods.com\nAddr: 22 Orchard Lane, Denver, CO 80202\nZIP: 80202\ngt_015\nBB",
+    "textBlockCount" : 13,
+    "usedBoundaryRectification" : true
+  }
+}

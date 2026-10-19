@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "厦门市思明区曾厝垵120号",
+    "company" : "厦门花语文创设计工作室 \/ Flora Studio",
+    "email" : "sherry.zheng@flora.example.cn",
+    "fax" : null,
+    "jobTitle" : "视觉设计师\/ Visual Designer",
+    "mobile" : "+86 132-5555-2020",
+    "name" : "郑雪 (Sherry Zheng)",
+    "officePhone" : null,
+    "website" : null
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "郑雪 （Sherry Zheng）\nCompany：厦门花语文创设计工作室 \/ Flora Studio\nTitle： 视觉设计师\/ Visual Designer\nDept：设计部\nMobile： +86 132-5555-2020\nEmail: sherry.zheng@flora.example.cn\nAddr：厦门市思明区曾厝垵120号\nZIP: 361005\ngt_020\nBB",
+    "textBlockCount" : 10,
+    "usedBoundaryRectification" : true
+  }
+}

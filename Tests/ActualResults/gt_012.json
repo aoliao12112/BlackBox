@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "321 Madison Ave, New York, NY 10016",
+    "company" : "Pioneer Marketing Group",
+    "email" : "sarah.kim@example.com",
+    "fax" : null,
+    "jobTitle" : "Marketing Director",
+    "mobile" : "+1-555-444-5566",
+    "name" : "Sarah Kim",
+    "officePhone" : null,
+    "website" : "www.pioneermg.com"
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "Sarah Kim\nCompany: Pioneer Marketing Group\nTitle: Marketing Director\nDept: Marketing\nMobile： +1-555-444-5566\nEmail: sarah.kim@example.com\nWeb:www.pioneermg.com\nAddr: 321 Madison Ave, New York, NY 10016\nZIP: 10016\ngt_012\nBB",
+    "textBlockCount" : 11,
+    "usedBoundaryRectification" : true
+  }
+}

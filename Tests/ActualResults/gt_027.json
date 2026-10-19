@@ -1,0 +1,23 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+      "east.sales@jincheng.example.cn",
+      "service@jincheng.example.cn"
+    ],
+    "address" : "上海市徐汇区漕溪北路1000号",
+    "company" : "上海锦程医疗器械有限公司",
+    "email" : "ming.zhu@jincheng.example.cn",
+    "fax" : "+86 21-5555-8801",
+    "jobTitle" : "区域销售总监",
+    "mobile" : "+86 137-5555-4027",
+    "name" : "朱明(Ming Zhu)",
+    "officePhone" : "+86 21-5555-8800",
+    "website" : "www.jincheng.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "朱明（Ming Zhu）\nCompany：上海锦程医疗器械有限公司\nTitle： 区域销售总监\nDept：销售部\nMobile： +86 137-5555-4027\nTel： +86 21-5555-8800\nFax： +86 21-5555-8801\nEmail: ming.zhu@jincheng.example.cn\nWeb: www.jincheng.example.cn\nAddr：上海市徐汇区漕溪北路1000号\nZIP: 200030\nEmail: east.sales@jincheng.example.cn\nEmai:service@jincheng.example.cn\nBB",
+    "textBlockCount" : 14,
+    "usedBoundaryRectification" : true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "青岛市市南区香港中路9号",
+    "company" : "青岛海蓝食品贸易公司 \/ BlueSea Trading",
+    "email" : "kevin.wu@bluesea.example.cn",
+    "fax" : "+86 532-5555-3301",
+    "jobTitle" : "采购专员 \/ Procurement",
+    "mobile" : "+86 155-5555-2019",
+    "name" : "吴强 (Kevin Wu)",
+    "officePhone" : "+86 532-5555-3300",
+    "website" : "www.bluesea.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "吴强 （Kevin Wu）\nCompany： 青岛海蓝食品贸易公司 \/ BlueSea Trading\nTitle： 采购专员 \/ Procurement\nMobile： +86 155-5555-2019\nTel： +86 532-5555-3300\nFax： +86 532-5555-3301\nEmail: kevin.wu@bluesea.example.cn\nWeb: www.bluesea.example.cn\nAddr：青岛市市南区香港中路9号\nZIP: 266071\ngt_019\nBB",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

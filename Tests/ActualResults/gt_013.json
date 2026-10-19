@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "100 Wall Street, New York, NY 10005",
+    "company" : "Apex Financial Services",
+    "email" : "james.wang@example.com",
+    "fax" : null,
+    "jobTitle" : "Analyst",
+    "mobile" : "+1-555-565-7788",
+    "name" : "James Wang",
+    "officePhone" : "+1-555-565-7700",
+    "website" : "www.apexfin.com"
+  },
+  "meta" : {
+    "language" : "en",
+    "ocrRawText" : "James Wang\nCompany: Apex Financial Services\nTitle: Analyst\nDept: Research\nMobile： +1-555-565-7788\nTel： +1-555-565-7700\nEmail:james.wang@example.com\nWeb:www.apexfin.com\nAddr: 100 Wall Street, New York, NY 10005\nZIP: 10005\ngt_013\nBB",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

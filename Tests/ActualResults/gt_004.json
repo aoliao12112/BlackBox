@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "成都市高新区天府大道中段666号",
+    "company" : "成都市锦程软件有限公司",
+    "email" : "liuyang@jincheng.example.cn",
+    "fax" : null,
+    "jobTitle" : "前端工程师",
+    "mobile" : "+86 150-5555-1004",
+    "name" : "刘洋",
+    "officePhone" : null,
+    "website" : null
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "刘洋\nCompany： 成都市锦程软件有限公司\nTitle：前端工程师\nMobile： +86 150-5555-1004\nEmail: liuyang@jincheng.example.cn\nAddr：成都市高新区天府大道中段666号\nZIP: 610041\ngt_004\nBB",
+    "textBlockCount" : 9,
+    "usedBoundaryRectification" : true
+  }
+}

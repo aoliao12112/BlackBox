@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "深圳市南山区前海深港合作区前湾一路1号",
+    "company" : "深圳前海湾投资咨询有限公司",
+    "email" : "peter.jiang@qianhaiwan.example.cn",
+    "fax" : "+86 755-5555-4401",
+    "jobTitle" : "投资顾问",
+    "mobile" : "+86 136-5555-7035",
+    "name" : "蒋平 (Peter Jiang)",
+    "officePhone" : "+86 755-5555-4400",
+    "website" : "www.qianhaiwan.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "蒋平 （Peter Jiang）\nCompany：深圳前海湾投资咨询有限公司\nTitle：投资顾问\nDept：投资部\nMobile： +86 136-5555-7035\nTel： +86 755-5555-4400\nFax： +86 755-5555-4401\nEmail: peter.jiang@qianhaiwan.example.cn\nWeb:www.qianhaiwan.example.cn\nAddr：深圳市南山区前海深港合作区前湾一路1号\nZIP: 518052\ngt\n_035\nBB",
+    "textBlockCount" : 14,
+    "usedBoundaryRectification" : true
+  }
+}

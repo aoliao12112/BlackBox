@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "广州市南沙区港前大道北10号",
+    "company" : "广州南沙物流有限公司",
+    "email" : "roger.uo@nansha.example.cn",
+    "fax" : null,
+    "jobTitle" : "仓库主管",
+    "mobile" : "+86 182-5555-6033",
+    "name" : "罗杰 (Roger Luo)",
+    "officePhone" : null,
+    "website" : null
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "罗杰 （Roger Luo）\nCompany：广州南沙物流有限公司\nTitle：仓库主管\nDept： 仓储部\nMobile： +86 182-5555-6033\nEmail: roger.uo@nansha.example.cn\nAddr：广州市南沙区港前大道北10号\nZIP: 511455\ngt_033\nBB",
+    "textBlockCount" : 10,
+    "usedBoundaryRectification" : true
+  }
+}

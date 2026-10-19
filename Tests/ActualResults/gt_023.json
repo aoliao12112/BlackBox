@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "贵阳市观山湖区金阳南路68号",
+    "company" : "贵阳大数据产业发展有限公司",
+    "email" : "henry.he@guidata.example.cn",
+    "fax" : null,
+    "jobTitle" : "数据分析师",
+    "mobile" : "+86 159-5555-3023",
+    "name" : "何勇(Henry He)",
+    "officePhone" : "+86 851-5555-5500",
+    "website" : "www.guidata.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "何勇（Henry He）\nCompany： 贵阳大数据产业发展有限公司\nTitle： 数据分析师\nDept：数据部\nMobile： +86 159-5555-3023\nTel： +86 851-5555-5500\nEmai: henry.he@guidata.example.cn\nweb:www.guidata.example.cn\nAddr：贵阳市观山湖区金阳南路68号\nZIP: 550081\nBB\ngt_023",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

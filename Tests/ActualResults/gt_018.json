@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "南京市鼓楼区中山北路26号",
+    "company" : "南京睿联信息科技有限公司 \/ Ruilian InfoTech",
+    "email" : "mia.zhou@ruilian.example.cn",
+    "fax" : null,
+    "jobTitle" : "运营经理 \/ Operations Manager",
+    "mobile" : "+86 187-5555-2018",
+    "name" : "周敏 (Mia Zhou)",
+    "officePhone" : null,
+    "website" : "www.ruilian.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "周敏 （Mia Zhou）\nCompany：南京睿联信息科技有限公司 \/ Ruilian InfoTech\nTitle：运营经理 \/ Operations Manager\nDept：运营部\nMobile： +86 187-5555-2018\nEmail: mia.zhou@ruilian.example.cn\nWeb:www.ruilian.example.cn\nAddr：南京市鼓楼区中山北路26号\nZIP: 210008\ngt_018\nBB",
+    "textBlockCount" : 11,
+    "usedBoundaryRectification" : true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "广州市白云区云城西路55号",
+    "company" : "广州市白云食品有限公司",
+    "email" : "fang.xu@baiyun.example.cn",
+    "fax" : null,
+    "jobTitle" : "质检员",
+    "mobile" : "+86 150-5555-5028",
+    "name" : "徐芳 (Fang Xu)",
+    "officePhone" : null,
+    "website" : null
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "徐芳 （Fang Xu）\nCompany： 广州市白云食品有限公司\nTitle： 质检员\nMobile： +86 150-5555-5028\nEmail: fang.xu@baiyun.example.cn\nAddr：广州市白云区云城西路55号\nZIP: 510410\ngt_028\nBB",
+    "textBlockCount" : 9,
+    "usedBoundaryRectification" : true
+  }
+}

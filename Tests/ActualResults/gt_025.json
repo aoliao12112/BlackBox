@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+      "sales@xinghai.example.cn"
+    ],
+    "address" : "青岛市崂山区海尔路180号",
+    "company" : "青岛星海国际贸易有限公司",
+    "email" : "tom.sun@xinghai.example.cn",
+    "fax" : "+86 532-5555-6601",
+    "jobTitle" : "商务经理",
+    "mobile" : "+86 138-5555-4025",
+    "name" : "孙涛 (Tom Sun)",
+    "officePhone" : "+86 532-5555-6600",
+    "website" : "www.xinghai.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "孙涛 （Tom Sun）\nCompany： 青岛星海国际贸易有限公司\nTitle： 商务经理\nDept：商务部\nMobile： +86 138-5555-4025\nTel： +86 532-5555-6600\nFax： +86 532-5555-6601\nEmail: tom.sun@xinghai.example.cn\nWeb:www.xinghai.example.cn\nAddr：青岛市崂山区海尔路180号\nZIP: 266101\nFmail: sales@xinghai.example.cn\nBB",
+    "textBlockCount" : 13,
+    "usedBoundaryRectification" : true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "天津市滨海新区第二大街22号",
+    "company" : "天津滨海创新孵化器有限公司",
+    "email" : "sean.gao@binhai.example.cn",
+    "fax" : null,
+    "jobTitle" : "创业导师",
+    "mobile" : "+86 138-5555-3024",
+    "name" : "高翔 (Sean Gao)",
+    "officePhone" : null,
+    "website" : "www.binhai.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "高翔 （Sean Gao）\nCompany： 天津滨海创新孵化器有限公司\nTitle： 创业导师\nMobile： +86 138-5555-3024\nEmail: sean.gao@binhai.example.cn\nWeb: www.binhai.example.cn\nAddr：天津市滨海新区第二大街22号\nZIP:300457\nBB\ngt_024",
+    "textBlockCount" : 10,
+    "usedBoundaryRectification" : true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+      "events@huaxin.example.cn"
+    ],
+    "address" : "北京市朝阳区东三环北路8号",
+    "company" : "北京华信国际会展中心",
+    "email" : "mary.ma@huaxin.example.cn",
+    "fax" : "+86 10-5555-7701",
+    "jobTitle" : "会展策划",
+    "mobile" : "+86 139-5555-4026",
+    "name" : "马丽 (Mary Ma)",
+    "officePhone" : "+86 10-5555-7700",
+    "website" : "www.huaxin.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "马丽 （Mary Ma）\nCompany：北京华信国际会展中心\nTitle： 会展策划\nDept：策划部\nMobile： +86 139-5555-4026\nTel： +86 10-5555-7700\nFax： +86 10-5555-7701\nEmail:mary.ma@huaxin.example.cn\nWeb:www.huaxin.example.cn\nAddr：北京市朝阳区东三环北路8号\nZIP: 100027\nEmail: events@huaxin.example.cn\nBB",
+    "textBlockCount" : 13,
+    "usedBoundaryRectification" : true
+  }
+}

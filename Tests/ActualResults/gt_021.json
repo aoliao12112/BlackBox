@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "重庆市渝北区金开大道345号",
+    "company" : "重庆山城工业设备有限公司 \/MountainCity Equipment",
+    "email" : "frank.feng@mountaincity.example.cn",
+    "fax" : null,
+    "jobTitle" : "项目经理 \/ Project Manager",
+    "mobile" : "+86 189-5555-2021",
+    "name" : "冯军(Frank Feng)",
+    "officePhone" : "+86 23-5555-4400",
+    "website" : "www.mountaincity.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "冯军（Frank Feng）\nCompany： 重庆山城工业设备有限公司 \/MountainCity Equipment\nTitle： 项目经理 \/ Project Manager\nDept：工程部\nMobile： +86 189-5555-2021\nTel： +86 23-5555-4400\nEmail: frank.feng@mountaincity.example.cn\nWeb:www.mountaincity.example.cn\nAddr：重庆市渝北区金开大道345号\nZIP: 401122\nBB\ngt_021",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

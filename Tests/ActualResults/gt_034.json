@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "上海市黄浦区淮海中路300号",
+    "company" : "上海魔都时尚设计有限公司",
+    "email" : "nina.xie@modu.example.cn",
+    "fax" : null,
+    "jobTitle" : "品牌策划",
+    "mobile" : "+86 189-5555-7034",
+    "name" : "谢娜 (Nina Xie)",
+    "officePhone" : "+86 21-5555-3300",
+    "website" : "www.modu.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "谢娜 （Nina Xie）\nCompany：上海魔都时尚设计有限公司\nTitle：品牌策划\nDept：品牌部\nMobile： +86 189-5555-7034\nTel： +86 21-5555-3300\nEmail: nina.xie@modu.example.cn\nweb:www.modu.example.cn\nAddr：上海市黄浦区淮海中路300号\nZIP: 200021\ngt_034\nBB",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "深圳市南山区科技园南区A座8楼",
+    "company" : "深圳华宇电子股份有限公司",
+    "email" : "zhangwei@huayu.example.cn",
+    "fax" : null,
+    "jobTitle" : "硬件工程师",
+    "mobile" : "+86 137-0000-1003",
+    "name" : "张伟",
+    "officePhone" : "+86 755-5555-3300",
+    "website" : "www.huayu.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "张伟\nCompany：深圳华宇电子股份有限公司\nTitle： 硬件工程师\nDept：研发中心\nMobile： +86 137-0000-1003\nTel：+86 755-5555-3300\nEmail: zhangwei@huayu.example.cn\nWeb:www.huayu.example.cn\nAddr：深圳市南山区科技园南区A座8楼\nZIP: 518057\ngt_003\nBB",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}

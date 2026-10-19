@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "广州市天河区珠江新城华穗路180号",
+    "company" : "广州市启铭设计咨询有限公司",
+    "email" : "zhaolei@qiming.example.cn",
+    "fax" : "+86 20-5555-8800",
+    "jobTitle" : "设计总监",
+    "mobile" : "+86 135-0000-1007",
+    "name" : "赵磊",
+    "officePhone" : "+86 20-5555-8899",
+    "website" : "www.qiming.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "赵磊\nCompany：广州市启铭设计咨询有限公司\nTitle： 设计总监\nDept：创意部\nMobile： +86 135-0000-1007\nTel： +86 20-5555-8899\nFax： +86 20-5555-8800\nEmail: zhaolei@qiming.example.cn\nWeb:www.qiming.example.cn\nAddr：广州市天河区珠江新城华穗路180号\nZIP:510623\ngt_007\nBB",
+    "textBlockCount" : 13,
+    "usedBoundaryRectification" : true
+  }
+}

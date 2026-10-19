@@ -31,8 +31,17 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
         var consumed: [Int: String] = [:]
 
         for (idx, line) in lines.enumerated() {
-            // 优先级：email > website > 传真 > mobile > officePhone > 地址 > 公司 > 职位
+            // 优先级：显式标签 > email > website > 传真 > mobile > officePhone > 地址 > 公司 > 职位
             if consumed[idx] != nil { continue }
+
+            // 显式标签（「公司：」「Mobile:」等）优先于内容启发式：
+            // 既能定位无后缀关键词的公司名（Pioneer Marketing Group），
+            // 也能避免「成都市…有限公司」被地址规则误抢。
+            if let labeled = Self.splitLabel(line),
+               consumeLabeled(field: labeled.field, value: labeled.value, index: idx,
+                              result: &result, consumed: &consumed) {
+                continue
+            }
 
             let emails = Self.extractEmails(line)
             if !emails.isEmpty {
@@ -73,8 +82,9 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
         // 姓名仅接受明确的人名形态；不能把 Apple 等单个品牌词猜成人名。
         if result.name == nil {
             if let (_, name) = Self.inferName(lines: lines, consumed: consumed) {
-                result.name = name
-                add(&result, field: "name", value: name, confidence: 0.75)
+                let normalized = Self.normalizeName(name)
+                result.name = normalized
+                add(&result, field: "name", value: normalized, confidence: 0.75)
             }
         }
 
@@ -110,15 +120,116 @@ final class RuleBasedFieldExtractor: FieldExtractorServiceProtocol {
                 of: #"^[A-Z][A-Za-z'’-]+(?:\s+[A-Z][A-Za-z'’-]+){1,3}$"#,
                 options: .regularExpression
             ) != nil
+            // 中英双语姓名：汉字 + 括号内英文，允许全/半角括号且英文大小写不限
             let bilingualName = line.range(
-                of: #"^[\p{Han}]{2,4}\s*\([A-Z][A-Za-z'’-]+(?:\s+[A-Z][A-Za-z'’-]+){1,3}\)$"#,
-                options: .regularExpression
+                of: #"^[\p{Han}]{2,4}\s*[（(][A-Za-z][A-Za-z'’-]*(?:\s+[A-Za-z][A-Za-z'’-]*){0,3}[）)]$"#,
+                options: [.regularExpression, .caseInsensitive]
             ) != nil
             if chineseName || englishName || bilingualName {
                 return (idx, line)
             }
         }
         return nil
+    }
+
+    // MARK: - 显式标签
+
+    /// 显式标签 → 字段映射；名片上的标签比内容启发式更可靠
+    private static let labeledFields: [(label: String, field: String)] = [
+        ("姓名", "name"), ("名字", "name"), ("Name", "name"),
+        ("公司", "company"), ("单位", "company"), ("Company", "company"),
+        ("职位", "jobTitle"), ("职务", "jobTitle"), ("Title", "jobTitle"),
+        ("部门", "ignored"), ("Dept", "ignored"), ("Department", "ignored"),
+        ("手机", "mobile"), ("Mobile", "mobile"), ("Cell", "mobile"),
+        ("办公", "officePhone"), ("座机", "officePhone"), ("电话", "officePhone"),
+        ("Tel", "officePhone"), ("Telephone", "officePhone"),
+        ("传真", "fax"), ("Fax", "fax"),
+        ("邮箱", "email"), ("电子邮箱", "email"), ("Email", "email"), ("E-mail", "email"),
+        ("网址", "website"), ("网站", "website"), ("Web", "website"), ("Website", "website"), ("URL", "website"),
+        ("地址", "address"), ("Addr", "address"), ("Address", "address"),
+        ("邮编", "ignored"), ("ZIP", "ignored"), ("PostalCode", "ignored"),
+    ]
+
+    /// 解析「标签: 值」形式，返回字段名与值；无标签返回 nil
+    private static func splitLabel(_ line: String) -> (field: String, value: String)? {
+        let ns = line as NSString
+        for (label, field) in labeledFields {
+            let escaped = NSRegularExpression.escapedPattern(for: label)
+            let pattern = "^\\s*\(escaped)\\s*[:：]\\s*(.*)$"
+            guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]),
+                  let match = regex.firstMatch(in: line, range: NSRange(location: 0, length: ns.length)),
+                  match.numberOfRanges > 1 else { continue }
+            let range = match.range(at: 1)
+            guard range.location != NSNotFound else { return (field, "") }
+            let value = ns.substring(with: range).trimmingCharacters(in: .whitespacesAndNewlines)
+            return (field, value)
+        }
+        return nil
+    }
+
+    /// 按显式标签落位字段；字段已占位或值缺失时返回 false，交回内容启发式
+    private func consumeLabeled(field: String, value: String, index: Int,
+                                result: inout FieldExtractionResult, consumed: inout [Int: String]) -> Bool {
+        if field == "ignored" { consumed[index] = field; return true }
+        guard !value.isEmpty else { return false }
+
+        switch field {
+        case "name":
+            guard result.name == nil else { return false }
+            let normalized = Self.normalizeName(value)
+            result.name = normalized; consumed[index] = field
+            add(&result, field: "name", value: normalized, confidence: 0.90)
+        case "company":
+            guard result.company == nil else { return false }
+            result.company = value; consumed[index] = field
+            add(&result, field: "company", value: value, confidence: 0.90)
+        case "jobTitle":
+            guard result.jobTitle == nil else { return false }
+            result.jobTitle = value; consumed[index] = field
+            add(&result, field: "jobTitle", value: value, confidence: 0.75)
+        case "mobile":
+            guard result.mobile == nil else { return false }
+            result.mobile = value; consumed[index] = field
+            add(&result, field: "mobile", value: value, confidence: 0.95)
+        case "officePhone":
+            guard result.officePhone == nil else { return false }
+            result.officePhone = value; consumed[index] = field
+            add(&result, field: "officePhone", value: value, confidence: 0.90)
+        case "fax":
+            guard result.fax == nil else { return false }
+            result.fax = value; consumed[index] = field
+            add(&result, field: "fax", value: value, confidence: 0.90)
+        case "website":
+            guard result.website == nil else { return false }
+            result.website = value; consumed[index] = field
+            add(&result, field: "website", value: value, confidence: 0.90)
+        case "address":
+            guard result.address == nil else { return false }
+            result.address = value; consumed[index] = field
+            add(&result, field: "address", value: value, confidence: 0.80)
+        case "email":
+            let emails = Self.extractEmails(value)
+            guard !emails.isEmpty else { return false }
+            for v in emails where v != result.email && !result.additionalEmails.contains(v) {
+                if result.email == nil {
+                    result.email = v; add(&result, field: "email", value: v, confidence: 0.95)
+                } else {
+                    result.additionalEmails.append(v); add(&result, field: "additionalEmail", value: v, confidence: 0.95)
+                }
+            }
+            consumed[index] = field
+        default:
+            return false
+        }
+        return true
+    }
+
+    /// 归一化姓名里的全角括号，便于与标准写法比较
+    private static func normalizeName(_ value: String) -> String {
+        value
+            .replacingOccurrences(of: "（", with: "(")
+            .replacingOccurrences(of: "）", with: ")")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     // MARK: - 正则抽取

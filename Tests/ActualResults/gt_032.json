@@ -1,0 +1,22 @@
+{
+  "actual" : {
+    "additionalEmails" : [
+
+    ],
+    "address" : "南京市玄武区珠江路333号",
+    "company" : "南京玄武信息技术有限公司",
+    "email" : "susan.su@xuanwu.example.cn",
+    "fax" : null,
+    "jobTitle" : "人事专员",
+    "mobile" : "+86 151-5555-6032",
+    "name" : "苏珊(Susan Su)",
+    "officePhone" : "+86 25-5555-2200",
+    "website" : "www.xuanwu.example.cn"
+  },
+  "meta" : {
+    "language" : "zh-Hans",
+    "ocrRawText" : "苏珊（Susan Su）\nCompany： 南京玄武信息技术有限公司\nTitle： 人事专员\nDept： 人力资源部\nMobile： +86 151-5555-6032\nTel： +86 25-5555-2200\nEmail: susan.su@xuanwu.example.cn\nWeb: www.xuanwu.example.cn\nAddr：南京市玄武区珠江路333号\nZIP: 210018\ngt_032\nBB",
+    "textBlockCount" : 12,
+    "usedBoundaryRectification" : true
+  }
+}
