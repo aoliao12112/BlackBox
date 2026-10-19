@@ -11,11 +11,15 @@ import SwiftUI
 struct SearchView: View {
     
     @EnvironmentObject private var router: Router
-    @State private var keyword = ""
+    @State private var keyword: String
     @State private var results: [BusinessCard] = []
     @State private var errorMessage: String?
     
     private let repository: ContactRepositoryProtocol = FileManagerContactRepository.shared
+    
+    init() {
+        _keyword = State(initialValue: DebugSupport.initialSearchKeyword ?? "")
+    }
     
     var body: some View {
         VStack(spacing: 0) {
