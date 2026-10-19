@@ -10,18 +10,19 @@
 - 名片详情、搜索、标签、备注、删除、VCF 与系统通讯录导出
 - 35 张虚拟合成名片 + Ground Truth + 自动准确率判定脚本
 - XCTest：字段抽取、VCF 映射、持久化往返
+- 验收证据与端到端演示录屏（`Tests/AcceptanceEvidence`、`BlackBox-演示录屏.mp4`）
 
 ## 开发环境
 
-- Xcode 15 或更高版本
-- iOS 17.0 或更高版本
-- 真机用于相机、权限、系统通讯录和 Kill/Relaunch 验收
+- Xcode 26（本项目在 Xcode 26.6 上验证）
+- iOS 17.0 或更高版本（deployment target）
+- 已在 iPhone 17 Pro（iOS 26）真机完成相机、权限、系统通讯录和 Kill/Relaunch 验收
 
 在 Mac 上打开 `blackbox.xcodeproj`，选择 `blackbox` scheme 后运行。单元测试使用 `Product > Test`，或：
 
 ```bash
 xcodebuild test -project blackbox.xcodeproj -scheme blackbox \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro'
 ```
 
 生成/校验测试数据：
@@ -31,4 +32,4 @@ python3 Scripts/generate_test_cards.py
 python3 Scripts/evaluate_accuracy.py
 ```
 
-完整交付状态与仍需 Mac/真机完成的项目见 `BlackBoxSpec/implementation_status.md` 和 `BlackBoxSpec/mac_acceptance_checklist.md`。
+完整交付状态与验收记录见 `BlackBoxSpec/implementation_status.md`、`BlackBoxSpec/mac_acceptance_checklist.md` 与 `BlackBoxSpec/acceptance_execution_record.md`。

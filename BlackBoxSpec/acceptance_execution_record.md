@@ -4,7 +4,8 @@
 > **执行时间**：2026-10-19
 > **执行环境**：
 > - 模拟器：iOS Simulator（iPhone 17 Pro，iOS 26.0），Debug 构建，`blackbox` scheme
-> - 真机：人工执行验收（机型 / 系统版本：待补充），执行人确认全部符合预期
+> - 真机：iPhone 17 Pro（iOS 26），人工执行验收，执行人确认全部符合预期
+> - 开发机：Mac Studio（2023，Apple M2 Max / 32 GB 内存），macOS Tahoe 26.0.1
 > **取证方式**：
 > - 模拟器：通过启动参数直达页面（`DebugSupport.swift`）+ `xcrun simctl` 自动截图；脚本见 [Scripts/capture_acceptance_evidence.sh](../Scripts/capture_acceptance_evidence.sh)
 > - 真机：人工按《reference_test_suite》逐条操作确认
@@ -200,7 +201,8 @@
 |----|------|
 | 执行方式 | 人工在真机上按《reference_test_suite.md》逐条操作 |
 | 执行时间 | 2026-10-19 |
-| 执行设备 | 真机（机型 / 系统版本：待补充） |
+| 执行设备 | iPhone 17 Pro（iOS 26） |
+| 开发机 | Mac Studio（2023，Apple M2 Max / 32 GB，macOS Tahoe 26.0.1） |
 | 覆盖测试 | T02、T03（允许路径）、T04、T05、T11、T12、T14、T16、T17、T18、T19、T20 中依赖硬件或人工交互的环节 |
 | 结论 | 上述环节全部符合预期，未发现崩溃或数据丢失 |
 
@@ -218,4 +220,4 @@
 
 ---
 
-*执行记录 v2.1 · 2026-10-19 · T01–T20 全部通过（模拟器取证 9 项 + 真机人工 11 项）；最终演示录屏已生成*
+*执行记录 v2.2 · 2026-10-19 · T01–T20 全部通过（模拟器取证 9 项 + 真机人工 11 项）；最终演示录屏已生成；真机与开发机环境已补全*

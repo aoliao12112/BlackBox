@@ -10,8 +10,8 @@
 | 项目 | 值 |
 |------|-----|
 | App 版本 | Week 1/2/3/4/5/6 阶段性构建 |
-| iOS | *待确认* |
-| 设备 | *待确认* |
+| iOS | iOS 26.0（Simulator）/ iOS 26（真机） |
+| 设备 | iPhone 17 Pro（真机 + Simulator） |
 | 名片集 | 教师提供 30~50 张 + Ground Truth |
 
 ---
