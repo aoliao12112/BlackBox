@@ -22,6 +22,24 @@
 | camcard_06.jpg | 数字名片 | 否 |
 | camcard_07.jpg | 企业查询 | 否 |
 
+### 补充素材（2026-10-28 采集）
+
+| 文件 | 来源 | 对应页面 | 用途 |
+|------|------|----------|------|
+| camcard_site_scan.png | 官网 camcard.com/zh-cn 产品页 | 拍摄页（单拍/连拍/多拍 + 边界框） | 对比一、校正对比 |
+| camcard_store_boundary.png | App Store 美区公开截图 | 拍摄页（两张名片同时框选） | 校正 / 边界检测对比 |
+| camcard_site_cardlist.png | 官网产品页 | 名片夹列表（手机 + PC 双端） | 对比二 |
+| camcard_store_card_search.png | App Store 美区公开截图 | 名片夹 + 搜索 + 标签 + 备注 | 搜索 / 标签对比 |
+| camcard_store_search.png | App Store 中国区公开截图 | 人脉搜索（搜索结果列表） | 搜索对比 |
+| camcard_site_detail.png | 官网产品页 | 名片详情（字段 + 编辑名片/更换样式） | 详情页对比 |
+| camcard_store_edit.png | App Store 美区公开截图 | 名片样式编辑（配色 / 社交链接） | 编辑页对比 |
+
+补充素材说明：
+
+- 官网素材来自 `https://www.camcard.com/zh-cn` 产品页（`static-cdn.camcard.com`），是官方对外展示的 App 界面图，同样带营销排版。
+- 商店素材来自 iTunes Search API（`itunes.apple.com/cn|us/lookup?id=349447615`），仍是**营销宣传图**而非原始截屏。
+- 以上均为公开素材，**不是教师锁定版本**；用于「同页面能对比即可」的初步对照。
+
 ## 注意事项
 
 1. 这些是 App Store 的**营销宣传图**（含设备外框与文案），不是应用内原始截屏；对比时已按此前提说明。

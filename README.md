@@ -11,7 +11,7 @@
 - 35 张虚拟合成名片 + Ground Truth + 自动准确率判定脚本
 - XCTest：字段抽取、VCF 映射、持久化往返
 - 验收证据与端到端演示录屏（`Tests/AcceptanceEvidence`、`BlackBox-演示录屏.mp4`）
-- UI 截图对比（参考版 App Store 官方截图 vs 本项目）：`UI截图对比报告.docx`、`BlackBoxSpec/ui_comparison.md`、`Tests/ReferenceScreenshots/`
+- UI 截图对比（CamCard 官网 + App Store 公开截图 vs 本项目，覆盖扫描/名片夹/边界/详情/搜索/编辑）：`UI截图对比报告.docx`、`BlackBoxSpec/ui_comparison.md`、`Tests/ReferenceScreenshots/`
 
 ## 开发环境
 
